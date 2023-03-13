@@ -1,0 +1,6 @@
+[submodule "msx2"]
+	path = msx2
+	url = https://github.com/gameblabla/copyright_infrigement_msx
+[submodule "colecovision"]
+	path = colecovision
+	url = https://github.com/gameblabla/copyright_infringement
