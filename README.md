@@ -63,3 +63,23 @@ I should point out that this still only saves about half of the space.
 
 I also considered the use of Biforst2 (8x1 multicolor) or even Gigascreen but these would require more bandwidth and a lot more memory as well.
 If i ever make use of these, it will have to be for a Spectrum 128k version.
+
+
+V.Smile and compatibles
+=======================
+
+As far as i know, this is the first V.smile homebrew game outside of experimental demos.
+
+This is a really strange beast, especially it's CPU and the way controls work (through UART).
+The V.Smile actually supports hicolor ! But i stuck with 8bpp due to bugs with the text layer when combined with hicolor.
+I might upgrade this to hicolor after further hardware tests...
+
+This port does not have any PCM sound for now as i've been told attempts so far failed on real hardware.
+I may look into this eventually myself.
+
+It's also not using sprites but the hardware was decently powerful enough for sprites not to be needed in my case.
+I may want to use them eventually but this game does not need them.
+
+Game is entirely 8bpp although i do have a 16-bits variant that's also provided for testing and if you guys are curious.
+
+Lack of sound is a shame so i may revisit this eventually.
