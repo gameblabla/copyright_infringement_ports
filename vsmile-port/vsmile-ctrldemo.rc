@@ -1,0 +1,68 @@
+# Begin Project
+# Begin SubItem "vsmile-ctrldemo  Resources"
+# Begin Source File
+SOURCE=font.bin
+USEPARAM=FALSE
+PARAM=
+ID=RES_FONT_BIN
+EXPORT=3
+SPECIFICFLAG=0
+# End Source File
+# Begin Source File
+SOURCE=frames.bin
+USEPARAM=FALSE
+PARAM=
+ID=RES_FRAMES_BIN
+EXPORT=3
+SPECIFICFLAG=0
+# End Source File
+# Begin Source File
+SOURCE=frames_pal.bin
+USEPARAM=FALSE
+PARAM=
+ID=RES_FRAMES_PAL_BIN
+EXPORT=3
+SPECIFICFLAG=0
+# End Source File
+# Begin Source File
+SOURCE=title.bin
+USEPARAM=FALSE
+PARAM=
+ID=RES_TITLE_BIN
+EXPORT=3
+SPECIFICFLAG=0
+# End Source File
+# Begin Source File
+SOURCE=title_pal.bin
+USEPARAM=FALSE
+PARAM=
+ID=RES_TITLE_PAL_BIN
+EXPORT=3
+SPECIFICFLAG=0
+# End Source File
+# Begin Source File
+SOURCE=yami.bin
+USEPARAM=FALSE
+PARAM=
+ID=RES_YAMI_BIN
+EXPORT=3
+SPECIFICFLAG=0
+# End Source File
+# Begin Source File
+SOURCE=yami_pal.bin
+USEPARAM=FALSE
+PARAM=
+ID=RES_YAMI_PAL_BIN
+EXPORT=3
+SPECIFICFLAG=0
+# End Source File
+# Begin Source File
+SOURCE=black.bin
+USEPARAM=FALSE
+PARAM=
+ID=RES_BLACK_BIN
+EXPORT=3
+SPECIFICFLAG=0
+# End Source File
+# End SubItem
+# End Project

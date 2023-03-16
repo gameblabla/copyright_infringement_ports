@@ -1,0 +1,56 @@
+Version: 3.0
+Options: tsk
+Obj: "C:\Program Files (x86)\Generalplus\unSPIDE 4.0.1\startupcode\startupD.obj"
+Obj: "C:\Program Files (x86)\Generalplus\vsmile-ctrldemo\Debug\main.obj"
+Obj: "C:\Program Files (x86)\Generalplus\vsmile-ctrldemo\Debug\Resource.obj"
+Obj: "C:\Program Files (x86)\Generalplus\vsmile-ctrldemo\Debug\font_bin.res"
+Obj: "C:\Program Files (x86)\Generalplus\vsmile-ctrldemo\Debug\frames_bin.res"
+Obj: "C:\Program Files (x86)\Generalplus\vsmile-ctrldemo\Debug\frames_pal_bin.res"
+Obj: "C:\Program Files (x86)\Generalplus\vsmile-ctrldemo\Debug\title_bin.res"
+Obj: "C:\Program Files (x86)\Generalplus\vsmile-ctrldemo\Debug\title_pal_bin.res"
+Obj: "C:\Program Files (x86)\Generalplus\vsmile-ctrldemo\Debug\yami_bin.res"
+Obj: "C:\Program Files (x86)\Generalplus\vsmile-ctrldemo\Debug\yami_pal_bin.res"
+Obj: "C:\Program Files (x86)\Generalplus\vsmile-ctrldemo\Debug\black_bin.res"
+Lib: "C:\Program Files (x86)\Generalplus\unSPIDE 4.0.1\library\CMacro\CMacro1016.lib"
+Output: "C:\Program Files (x86)\Generalplus\vsmile-ctrldemo\Debug\vsmile-ctrldemo.TSK"
+;Align: __sn_section_RES_FONT_BIN in "font_bin.res" with 40 
+;Align: __sn_section_RES_FRAMES_BIN in "frames_bin.res" with 40 
+;Align: __sn_section_RES_FRAMES_PAL_BIN in "frames_pal_bin.res" with 40 
+;Align: __sn_section_RES_TITLE_BIN in "title_bin.res" with 40 
+;Align: __sn_section_RES_TITLE_PAL_BIN in "title_pal_bin.res" with 40 
+;Align: __sn_section_RES_YAMI_BIN in "yami_bin.res" with 40 
+;Align: __sn_section_RES_YAMI_PAL_BIN in "yami_pal_bin.res" with 40 
+;Align: __sn_section_RES_BLACK_BIN in "black_bin.res" with 40 
+;Locate: unSP_StartUp in "startupD.obj" at 8009 
+;Align: unSP_StartUp in "startupD.obj" with 0 
+;Locate: IRAM in "main.obj" at 9374  linkat 8 
+;Align: IRAM in "main.obj" with 0 
+;Locate: CODE in "main.obj" at 87AB 
+;Align: CODE in "main.obj" with 0 
+;Locate: __sn_section_RES_FONT_BIN in "font_bin.res" at 9D00 
+;Locate: __sn_section_RES_FRAMES_BIN in "frames_bin.res" at 10040 
+;Locate: __sn_section_RES_FRAMES_PAL_BIN in "frames_pal_bin.res" at A540 
+;Locate: __sn_section_RES_TITLE_BIN in "title_bin.res" at 64680 
+;Locate: __sn_section_RES_TITLE_PAL_BIN in "title_pal_bin.res" at A7C0 
+;Locate: __sn_section_RES_YAMI_BIN in "yami_bin.res" at 6DCC0 
+;Locate: __sn_section_RES_YAMI_PAL_BIN in "yami_pal_bin.res" at A680 
+;Locate: __sn_section_RES_BLACK_BIN in "black_bin.res" at 77300 
+;Locate: CODE in "_GPTag" of "CMacro1016.lib"  at 936C 
+;Align: CODE in "_GPTag" of "CMacro1016.lib"  with 0 
+;Locate: CODE in "lshiu2" of "CMacro1016.lib"  at 92B1 
+;Align: CODE in "lshiu2" of "CMacro1016.lib"  with 0 
+;Locate: CODE in "rshu2" of "CMacro1016.lib"  at 92EB 
+;Align: CODE in "rshu2" of "CMacro1016.lib"  with 0 
+;Locate: CODE in "divu1" of "CMacro1016.lib"  at 9215 
+;Align: CODE in "divu1" of "CMacro1016.lib"  with 0 
+;Locate: CODE in "modu1" of "CMacro1016.lib"  at 91B8 
+;Align: CODE in "modu1" of "CMacro1016.lib"  with 0 
+;Locate: CODE in "clz" of "CMacro1016.lib"  at 9268 
+;Align: CODE in "clz" of "CMacro1016.lib"  with 0 
+;Locate: CODE in "__divi16_n" of "CMacro1016.lib"  at 9362 
+;Align: CODE in "__divi16_n" of "CMacro1016.lib"  with 0 
+;Locate: CODE in "lshiu1" of "CMacro1016.lib"  at 931E 
+;Align: CODE in "lshiu1" of "CMacro1016.lib"  with 0 
+;Locate: CODE in "rshu1" of "CMacro1016.lib"  at 9340 
+;Align: CODE in "rshu1" of "CMacro1016.lib"  with 0 
+;Locate: __sn_init_table at 8000 
