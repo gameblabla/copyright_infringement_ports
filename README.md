@@ -110,4 +110,4 @@ Game is entirely 8bpp although i do have a 16-bits variant that's also provided 
 
 Lack of sound is a shame so i may revisit this eventually.
 
-[Download MSX2 version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-vsmile)
+[Download VSmile version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-vsmile)
