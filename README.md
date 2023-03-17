@@ -111,3 +111,33 @@ Game is entirely 8bpp although i do have a 16-bits variant that's also provided 
 Lack of sound is a shame so i may revisit this eventually.
 
 [Download VSmile version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-vsmile)
+
+
+Exidy Sorcerer
+=================
+
+![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/exidy.jpg)
+
+This port was challenging due to technical contraints.
+At first, i initially wanted to go the putsprite way as the hardware lacks a proper graphics mode so to speak.
+However, i only ended up using this for static screens as it is way too slow otherwise.
+This is in part to z88dk's drawing routines relying on the pixel plotting functions and doing a lot of checking...
+
+I then had the idea of basically treating the 512x256 character-based display and defining each character as a pixel.
+Doing so would achieve a resolution of 64x30. It is then a matter of simply uploading the bitmapped graphics to 0xF080, 
+which contains the buffer for the text characters onscreen.
+
+The amusing part is that the default font did not have a completely white block to achieve this.
+However, it's possible to upload your own character set in the 127-255 range so that's what i did.
+
+Other games went further with this and made their own proper character set and worked around this
+but this would have been very annoying to deal with and probably not fast enough for my purpose.
+
+Sadly z88dk doesn't support sound for this target so it has been disabled for this build.
+The 64x30 mode also looks very chunky, and i thought the 128x60 would also be challenging to be honest hehe...
+The results aren't pretty but it is smooth however.
+
+I might actually make a proper game for this someday but not a lot of people are interested in business machines like this one.
+Perhaps i'll do a flappy bird like i did on the Laser 200.
+
+[Download Exidy version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-exidy)
