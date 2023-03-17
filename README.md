@@ -17,7 +17,6 @@ Planned ports
 - BK Electronika (Might as well piss off Russia on their own ground !)
 - Tatung Einstein (WIP, on hold right now due to technical issues)
 - Grundy NewBrain
-- Exidy Sorcerer
 - NES (Very unfamiliar with that one...)
 - Amiga CD32 (eventually)
 
