@@ -137,6 +137,10 @@ Sadly z88dk doesn't support sound for this target so it has been disabled for th
 The 64x30 mode also looks very chunky, and i thought the 128x60 would also be challenging to be honest hehe...
 The results aren't pretty but it is smooth however.
 
+You may also wonder how i managed to fit 5 frames of animation and still make it work on an 8KB machine ?
+Well thanks to the ZX7 compressor this is doable now. Frames that would normally be 1920 bytes large are
+compressed down to 280 bytes or so. The decompressor is also 240 bytes or so and plenty fast as well so it's worth it.
+
 I might actually make a proper game for this someday but not a lot of people are interested in business machines like this one.
 Perhaps i'll do a flappy bird like i did on the Laser 200.
 
