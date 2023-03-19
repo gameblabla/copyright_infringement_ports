@@ -25,7 +25,7 @@ done
 echo "Device to load from : "$DEFAULT_DEVICE
 
 # Compile main.c and inline all .o files
-OUTPUT=$(qdos-gcc -O3 -fomit-frame-pointer -ffast-math -nostartfiles -ffixed-a6 -DDEVICE_LOADFROM=\"$DEFAULT_DEVICE\" -o $TARGET -Wl,-ms -Wl,-screspr.o main.c $(find . -maxdepth 1 -name "*.o") 2>&1)
+OUTPUT=$(qdos-gcc -Os -fomit-frame-pointer -nostartfiles -ffixed-a6 -DDEVICE_LOADFROM=\"$DEFAULT_DEVICE\" -o $TARGET -Wl,-ms -Wl,-screspr.o main.c $(find . -maxdepth 1 -name "*.o") 2>&1)
 
 if ! test -f "$TARGET"; then
     echo $OUTPUT

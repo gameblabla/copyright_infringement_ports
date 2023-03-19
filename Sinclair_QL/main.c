@@ -10,8 +10,6 @@
 #define uint8_t unsigned char
 #define uint16_t unsigned short
 
-char text[120] = "";
-
 #ifndef DEVICE_LOADFROM
 #error "Define DEVICE_LOADFROM to something like flp1 or mdv1"
 #endif
@@ -24,7 +22,7 @@ unsigned char text_progress = 0;
 unsigned char status = 0;
 unsigned char time_game = 0;
 unsigned char i = 0;
-int global_score = 0;
+unsigned short global_score = 0;
 
 static unsigned short keys;
 static const long IPCcmd [2] = { 0x09010000L, 0x00000102L };
@@ -44,22 +42,20 @@ unsigned char FRAME_CURRENT = 0;
 
 #define SCR8_START_ADDRESS ((volatile void*)0x20000)
 
-#ifdef _512KB
-// Use 0x40000 for Expanded RAM
-#define TEMP_RAM_AREA ((volatile void*)0x40000)
-#else
-// Assume default 128KB configuration
 
+#define TEMP_RAM_AREA_ALT_HIGH_MEMORY ((volatile void*)0x40000) 
+// Assume default 128KB configuration
 // If we attempt to go further, we overwrite our own memory
-#define TEMP_RAM_AREA_ALT ((volatile void*)0x36000)
+#define TEMP_RAM_AREA_ALT_128K_CONFIG ((volatile void*)0x35000) 
 
 //0x3A000 used to work but not on Q-emulator...
 //Oh well, the fun of manually managing memory !
 
+// Screen 2 area
 // Stock ROM can go further at 0x2A000
 // but Minerva, this is as far as we can go...
-#define TEMP_RAM_AREA ((volatile void*)0x2B4D0)
-#endif
+#define TEMP_RAM_AREA ((volatile void*)0x2C000)
+
 
 WINDOWDEF_t my_windef = { 
 		WHITE_M4, 0, 
@@ -100,6 +96,7 @@ WINDOWDEF_t empty = {
 		0, 0, 
 		0, 0
 };
+
 chanid_t in, in2;
 
 #define Init_text() in =  ut_con ( &my_windef );  sd_setsz( in, 1, 1, 0 ); sd_setin( in, 1, WHITE_M4 ); sd_clear(in, 1 );
@@ -117,7 +114,7 @@ const unsigned char text_minigame_1[] =
 
 void Print_text(const char* str, unsigned char text_size)
 {
-	char buffer[192];
+	char buffer[189];
 	QLSTR_t* p_qlstr;
 
 	sd_clear(in, 1 );
@@ -133,7 +130,6 @@ void Print_score()
 	sd_clear(in2, 1 );
 	ut_mint(in2, global_score);
 }
-
 
 unsigned char open_image_to_buffer(const char* fname, void* buf, unsigned short fsize)
 {
@@ -162,7 +158,8 @@ void switch_gamemode(unsigned char mode);
 
 unsigned long frames_offset[]=
 {
-	TEMP_RAM_AREA + 0, TEMP_RAM_AREA + 5610, TEMP_RAM_AREA + 5610+5854, TEMP_RAM_AREA_ALT + 0, TEMP_RAM_AREA_ALT + 5876,
+	TEMP_RAM_AREA + 0, TEMP_RAM_AREA + 5610, TEMP_RAM_AREA + 5610+5854, 
+	TEMP_RAM_AREA_ALT_128K_CONFIG + 0, TEMP_RAM_AREA_ALT_128K_CONFIG + 5876,
 };
 
 #define KEEPITUP_GAME_STATUS 0
@@ -189,12 +186,10 @@ const unsigned char status_level1[] =
 
 extern void WAITVBLANK();
 
-
 static unsigned short music_tick = 0;
 static unsigned short note_index = 0;
 static const unsigned short note_delay = 7;
 unsigned char music_toplay = 99;
-
 static const unsigned short MUSIC_NOTES[][5] =
 {
 	// Music 1
@@ -301,11 +296,13 @@ int main()
 
     mt_dmode(&mode, &s_mode);
     SET_LOW_RESOLUTION();
-
-	//open_image_to_buffer("IMGZX0", (void*)TEMP_RAM_AREA, 13710);
-	//zx0_decompress((void*)TEMP_RAM_AREA, (void*)SCR8_START_ADDRESS);
 	
 	switch_gamemode(0);
+	
+	// This will be expanded later for systems with more memory
+	// For now assume 128K system
+	//frames_offset[3] = TEMP_RAM_AREA_ALT_128K_CONFIG + 0;
+	//frames_offset[4] = TEMP_RAM_AREA_ALT_128K_CONFIG + 5876;
 
 	while(1)
 	{
@@ -331,9 +328,6 @@ int main()
 		switch(game_mode)
 		{
 			case 0:
-				//play_music();
-
-			
 				wait++;
 				if (keys == Q_KEY_SPACE && wait > 10)
 				{
@@ -465,7 +459,6 @@ int main()
 
 static void PLAY_JINGLE_FAILURE()
 {
-	int i;
 	do_sound(
 	2500, 0xFF, 0xC0, 
 	0, 0, 0, 
@@ -475,7 +468,6 @@ static void PLAY_JINGLE_FAILURE()
 
 static inline void PLAY_JINGLE_GOOD()
 {
-	int i;
 	// SUCESS
 	do_sound(
 	2500, 0xA0, 0xA0, 
@@ -497,6 +489,9 @@ static inline void PLAY_JINGLE_GOOD()
 
 void switch_gamemode(unsigned char mode) 
 {
+	char txt[32];
+	unsigned char first_byte;
+	
 	game_mode = mode;
 	text_progress = 0;
 	status = 0;
@@ -517,7 +512,6 @@ void switch_gamemode(unsigned char mode)
 			open_image_to_buffer("titlelz4w", (void*)TEMP_RAM_AREA, 6774);
 			lz4w_unpack((void*)TEMP_RAM_AREA, (void*)SCR8_START_ADDRESS);
 			music_toplay = 0;
-			//do_sound(12800, 0x00, 0xff, 0, 0, 0, 0x70, 0x99);
 		break;
 		case 1:
 			music_toplay = 3;
@@ -537,9 +531,6 @@ void switch_gamemode(unsigned char mode)
 			
 			Print_text(ingame_quote[status_level1[status]], 11);
 			Print_score();
-			/*bcd[0] = 48;
-			bcd[1] = 48;
-			bcd[2] = 48;*/
 		break;
 		case 2:
 			open_image_to_buffer("baklz4w", (void*)TEMP_RAM_AREA, 15000);
@@ -581,6 +572,5 @@ void switch_gamemode(unsigned char mode)
 	
 	// So we only have to do it once
 	note_index = music_start_notes[music_toplay];
-	
 }
 
