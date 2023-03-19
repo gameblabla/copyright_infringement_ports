@@ -144,3 +144,35 @@ I might actually make a proper game for this someday but not a lot of people are
 Perhaps i'll do a flappy bird like i did on the Laser 200.
 
 [Download Exidy version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-exidy)
+
+Sinclair QL
+=================
+
+![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/QL.jpg)
+
+This port took longer than it should have been, mostly due to lack of support, tools and documentation.
+I honestly wanted to give up but decided it would be a shame to give up since this system barely has any games !
+
+This version performs pretty good and i think technically wise, it should hold up.
+
+It's a shame the Sinclair QL only has a primitive beeper that you can only send commands to
+via an intel microcontroller which rules out 1-bit PCM even.
+
+The Sinclair QL is definitively a mixed bag : 
+it has a much better CPU than the Zx Spectrum but the graphical upgrades are not really massive.
+The only notable difference on the QL is the complete lack of color clashing and a higher resolution mode with 4 colors. 
+This game uses the low resolution with 8 colors but with dithering, both modes look interesting i would say.
+Dithering is not used in-game as it would increase the RAM consumption even further...
+However it is used for the static screens.
+
+I also borrowed OS/screen 2 memory for storing data as we're really running out of space...
+Forget about using malloc on this thing ! 
+Just push your data to a fixed location and follow the memory map.
+Yes, that forces you to track your own memory usage but that can be a good thing honestly.
+
+There was also initially a bug with the game overwriting some of the systems functions for text drawing etc...
+resulting in the game outputting no text ! I had to move up the memory location slightly higher to avoid this issue.
+There are ways around this but they all involve disabling the OS or moving it to another location,
+both of which have their own disadvantages and complications. Therefore, i decided to do that instead.
+
+[Download Sinclair QL version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-SinclairQL)
