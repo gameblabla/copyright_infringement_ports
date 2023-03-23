@@ -14,7 +14,6 @@ Planned ports
 =============
 
 - TI 82/83/84
-- BK Electronika (Might as well piss off Russia on their own ground !)
 - Tatung Einstein (WIP, on hold right now due to technical issues)
 - Grundy NewBrain
 - NES (Very unfamiliar with that one...)
@@ -176,3 +175,24 @@ There are ways around this but they all involve disabling the OS or moving it to
 both of which have their own disadvantages and complications. Therefore, i decided to do that instead.
 
 [Download Sinclair QL version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-SinclairQL)
+
+
+BK Elektronika (BK-0010)
+=========================
+![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/bk.jpg)
+
+This russian computer was notable back then as it was the cheapest computer most could afford. (still worth 3 months of work !)
+I had to port this gay game to computer...
+
+This port was extremely challenging for multiple reasons :
+- I had to figure out how to even get a working binary on this as there was not toolkit to speak of
+- Once i did that, i had to figure out the hardware, which required me to hop through multiple documents and blog posts, including in Russian.
+- The PDP-11 GCC backend is extremely buggy and would produce broken executables at -O1 and higher.
+- This forced me to rely a lot more on PDP-11 assembly and functions.
+- Once i did know about all of this, trying to fit the game into 15.5Kb of RAM was extremely challenging.
+
+The results are mixed but i still managed to fit the animations as well as beeps and all.
+I may consider having an expanded version for later BK revisions but i would rather port this to more capable Soviet
+computers like the Vector-06C or the Corvette.
+
+[Download BK-0010 version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-BK)

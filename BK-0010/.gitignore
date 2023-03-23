@@ -1,0 +1,7 @@
+*.bin
+roms/
+*.log
+*.S
+*.s
+*.elf
+*.wav
