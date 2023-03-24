@@ -196,3 +196,19 @@ I may consider having an expanded version for later BK revisions but i would rat
 computers like the Vector-06C or the Corvette.
 
 [Download BK-0010 version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-BK)
+
+
+PMD-85
+=========================
+![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/pmd.jpg)
+
+This was a Czechoslovak computer that was, according to a Czechoslovak that covered soviet computers back then, well loved.
+The initial versions were completely black & white but very late into its lifespan, color output was added.
+Then the color ouput was later refined into ColorAce, which this game takes advantage of.
+The nice thing about ColorAce is that it is also backwards compatible with non-ColorAce units, although it might look off on these machines.
+
+This port was very simple to do. Unfortunately RAM is an issue and the 48k amount is misleading due to how the memory map is laid out.
+In reality, this is more like a 32k machine and you have to load the games from casette so it's still pretty limiting.
+It's only slightly better than the BK-0010 version because of the extra memory but that's it.
+
+[Download PMD-85 version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-PMD)
