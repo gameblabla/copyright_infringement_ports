@@ -212,3 +212,17 @@ In reality, this is more like a 32k machine and you have to load the games from 
 It's only slightly better than the BK-0010 version because of the extra memory but that's it.
 
 [Download PMD-85 version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-PMD)
+
+
+Lviv/Lvov PK01
+===================
+
+![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/lviv.jpg)
+
+Another soviet computer that has a very strange memory layout.
+If you disable Video RAM, you have full access to the 48kb of RAM.
+Otherwise, you only get 16kb to play with... What a waste.
+
+At least there's a wide range of 4 color palettes to choose from !
+
+[Download LVIV version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-LVIV)
