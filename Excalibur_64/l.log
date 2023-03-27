@@ -1,0 +1,76 @@
+  Zilog Z80 ':maincpu' space program read:
+0000 - 1fff: Bank ':bankr1'
+2000 - 2fff: Bank ':bankr2'
+3000 - 3fff: Bank ':bankr3'
+4000 - bfff: Bank ':bankr4'
+c000 - ffff: memory@c000
+
+  Zilog Z80 ':maincpu' space program write:
+0000 - 1fff: Bank ':bankw1'
+2000 - 2fff: Bank ':bankw2'
+3000 - 3fff: Bank ':bankw3'
+4000 - bfff: Bank ':bankw4'
+c000 - ffff: memory@c000
+
+  Zilog Z80 ':maincpu' space io read:
+0000 - 000f: excali64_state::port00_r
+0010 - 001f: i8251_device::read
+0020 - 002f: pit8253_device::read
+0030 - 0030: mc6845_device::status_r
+0031 - 0031: mc6845_device::register_r
+0032 - 0032: mc6845_device::status_r
+0033 - 0033: mc6845_device::register_r
+0034 - 0034: mc6845_device::status_r
+0035 - 0035: mc6845_device::register_r
+0036 - 0036: mc6845_device::status_r
+0037 - 0037: mc6845_device::register_r
+0038 - 0038: mc6845_device::status_r
+0039 - 0039: mc6845_device::register_r
+003a - 003a: mc6845_device::status_r
+003b - 003b: mc6845_device::register_r
+003c - 003c: mc6845_device::status_r
+003d - 003d: mc6845_device::register_r
+003e - 003e: mc6845_device::status_r
+003f - 003f: mc6845_device::register_r
+0040 - 004f: unmapped
+0050 - 005f: excali64_state::port50_r
+0060 - 006f: i8255_device::read
+0070 - 00df: unmapped
+00e0 - 00e3: z80dma_device::read
+00e4 - 00e7: unmapped
+00e8 - 00eb: excali64_state::porte8_r
+00ec - 00ef: unmapped
+00f0 - 00f3: wd2793_device::read
+00f4 - ffff: unmapped
+
+  Zilog Z80 ':maincpu' space io write:
+0000 - 000f: unmapped
+0010 - 001f: i8251_device::write
+0020 - 002f: pit8253_device::write
+0030 - 0030: mc6845_device::address_w
+0031 - 0031: mc6845_device::register_w
+0032 - 0032: mc6845_device::address_w
+0033 - 0033: mc6845_device::register_w
+0034 - 0034: mc6845_device::address_w
+0035 - 0035: mc6845_device::register_w
+0036 - 0036: mc6845_device::address_w
+0037 - 0037: mc6845_device::register_w
+0038 - 0038: mc6845_device::address_w
+0039 - 0039: mc6845_device::register_w
+003a - 003a: mc6845_device::address_w
+003b - 003b: mc6845_device::register_w
+003c - 003c: mc6845_device::address_w
+003d - 003d: mc6845_device::register_w
+003e - 003e: mc6845_device::address_w
+003f - 003f: mc6845_device::register_w
+0040 - 005f: unmapped
+0060 - 006f: i8255_device::write
+0070 - 007f: excali64_state::port70_w
+0080 - 00df: unmapped
+00e0 - 00e3: z80dma_device::write
+00e4 - 00e7: excali64_state::porte4_w
+00e8 - 00eb: unmapped
+00ec - 00ef: excali64_state::portec_w
+00f0 - 00f3: wd2793_device::write
+00f4 - ffff: unmapped
+

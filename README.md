@@ -226,3 +226,24 @@ Otherwise, you only get 16kb to play with... What a waste.
 At least there's a wide range of 4 color palettes to choose from !
 
 [Download LVIV version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-LVIV)
+
+
+Excalibur 64
+============
+![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/Excalibur_64.jpg)
+
+This is probably the worst port along with the Exidy Sorcerer version though this one
+does at least have 16 colors (not all are used to the garish color palette).
+
+This was very challenging to even make it work and the lack of documentation further
+hurt it.
+It's a shame as according to dom (z88dk maintainer),
+you can actually emulate a 320x288 pixel mode by using the PCG banks together.
+
+This game as it is only uses 160x72 for the story text and 80x25 ingame,
+resulting in a very chunky look.
+Additionally, no sound due to lack of documentation on how to even output sound...
+
+Cool name for a computer though, maybe i'll revisit it for my next game.
+
+[Download Excalibur 64 version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-E64)
