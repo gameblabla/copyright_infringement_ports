@@ -10,15 +10,6 @@ to achieve FMVs on the Colecovision through the use of MegaROM bank switcher.
 Later, another unrelated game for the TI-99/4a (Dragon's Lair) took it a step further
 and did full motion video with PCM sound at 13khz and on a gigantic 512MB rom !
 
-Planned ports
-=============
-
-- TI 82/83/84
-- Tatung Einstein (WIP, on hold right now due to technical issues)
-- Grundy NewBrain
-- NES (Very unfamiliar with that one...)
-- Amiga CD32 (eventually)
-
 
 CBS Colecovision
 =================
@@ -235,15 +226,33 @@ Excalibur 64
 This is probably the worst port along with the Exidy Sorcerer version though this one
 does at least have 16 colors (not all are used to the garish color palette).
 
-This was very challenging to even make it work and the lack of documentation further
-hurt it.
-It's a shame as according to dom (z88dk maintainer),
-you can actually emulate a 320x288 pixel mode by using the PCG banks together.
+This was very challenging to even make it work and the lack of documentation further hurt it.
+It's a shame as according to dom (z88dk maintainer), you can actually emulate a 320x288 pixel mode by using the PCG banks together.
 
-This game as it is only uses 160x72 for the story text and 80x25 ingame,
-resulting in a very chunky look.
+This game as it is only uses 160x72 for the story text and 80x25 ingame, resulting in a very chunky look.
 Additionally, no sound due to lack of documentation on how to even output sound...
 
 Cool name for a computer though, maybe i'll revisit it for my next game.
 
 [Download Excalibur 64 version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-E64)
+
+Oric 1/Oric Atmos
+==================
+![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/atmos.jpg)
+
+I haven't really dealt with any 6502-based machine for quite some time...
+The Oric is quite interesting and shares a lot in similar with the ZX Spectrum.
+
+I would argue it's quite better than the Spectrum due to the slightly superior graphics and 3 channel sound.
+The first Oric sold 200,000 units in France and UK for these reasons along with the price matching the Spectrum.
+However they never really evolved beyond that and soon faster computers came out...
+
+As for the port itself, besides dealing with the RAM, it was mostly straight forward
+tho unlike on the Z80, it turns out LZSA is too slow for decompressing frames on it !
+I will have to think of something for the C128 and C64 ports...
+
+The Oric, thankfully, has a decent amount of memory and not a retarded memory mapping either
+so it was easy to get something to work. Not a bad version i would say.
+
+[Download Oric version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-ORIC)
+
