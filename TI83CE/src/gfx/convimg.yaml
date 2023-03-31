@@ -1,0 +1,60 @@
+palettes:
+  - name: global_palette
+    fixed-entries:
+      - color: {index: 0, r: 0, g: 0, b: 0}
+      - color: {index: 1, r: 255, g: 255, b: 255}
+    images: automatic
+   
+converts:
+  - name: yami
+    palette: global_palette
+    compress: zx0
+    transparent-color-index: 0
+    images:
+      - yami.png
+  - name: frame1
+    palette: global_palette
+    compress: zx0
+    transparent-color-index: 0
+    images:
+      - frame1.png
+  - name: frame2
+    palette: global_palette
+    compress: zx0
+    transparent-color-index: 0
+    images:
+      - frame2.png
+  - name: frame3
+    palette: global_palette
+    compress: zx0
+    transparent-color-index: 0
+    images:
+      - frame3.png
+  - name: frame4
+    palette: global_palette
+    compress: zx0
+    transparent-color-index: 0
+    images:
+      - frame4.png
+  - name: frame5
+    palette: global_palette
+    compress: zx0
+    transparent-color-index: 0
+    images:
+      - frame5.png
+      
+outputs:
+  - type: appvar
+    name: vargci
+    source-format: c
+    include-file: vargci.h
+    header-string: STRING
+    palettes:
+      - global_palette
+    converts:
+      - frame1
+      - frame2
+      - frame3
+      - frame4
+      - frame5
+      - yami

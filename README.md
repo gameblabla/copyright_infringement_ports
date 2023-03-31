@@ -256,3 +256,20 @@ so it was easy to get something to work. Not a bad version i would say.
 
 [Download Oric version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-ORIC)
 
+
+TI-83 CE
+==================
+![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/ti83ce.jpg)
+
+I found one by sheer luck for really cheap (15€) instead of the usual expensive prices so thought that would be an opportunity.
+The C toolchain for it is really nice and uses Clang as the new backend (previously it was using a proprietary solution but that's now largely fixed).
+ZX0/ZX7 are also directly integrated so that saved me some time.
+The only issue was the size for archive files was small. It's possible i believe to go beyond the 65k limit by having several ones
+but i only learned of this much later...
+In any case, i didn't want this game to be too big so i stuck with 64kb and instead upscaled the 160x100 frames to 320x200 in short of a nasty way.
+It works fine though, since this is decently powerful.
+
+I implemented highscore saving (this is based upon the Oric version) but it seems not to work reliably so unsure...
+It's still there in any case.
+
+[Download TI83CE version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-TI83CE)

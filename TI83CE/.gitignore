@@ -1,0 +1,9 @@
+obj/
+bin/
+src/gfx/*.c
+src/gfx/*.h
+src/gfx/*.8xv
+.DS_Store
+convimg.out
+*.8xv
+*.8xp
