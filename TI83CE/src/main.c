@@ -9,7 +9,7 @@
 #define ARCHIVE_APP 1
 
 /* Include the converted graphics appvar file */
-#include "gfx/vargci.h"
+#include "gfx/VARGCI.h"
 
 unsigned char k, game_mode, text_progress;
 unsigned char FRAME_CURRENT;
@@ -89,9 +89,9 @@ int main()
 {
 	os_ClrHome();
 	#ifdef ARCHIVE_APP
-    if (vargci_init() == 0)
+    if (VARGCI_init() == 0)
     {
-		os_PutStrFull( "Missing vargci file");
+		os_PutStrFull( "Missing VARGCI file");
 		os_PutStrFull( "This game needs it to run");
 		while (!os_GetCSC());
         return 1;
@@ -111,7 +111,7 @@ int main()
 	hibcd[1] = 48;
 	hibcd[2] = 48;
 	
-	filesave = ti_Open("VarCIH", "rb");
+	filesave = ti_Open("VARCIH", "rb");
 	if (filesave != 0)
 	{
 		ti_Read(hibcd, sizeof(hibcd), 1, filesave);
@@ -172,7 +172,7 @@ int main()
 						if (FRAME_CURRENT > 4) FRAME_CURRENT = 0;
 						
 						#ifdef ARCHIVE_APP
-						zx0_Decompress(mainimage, vargci_appvar[1+FRAME_CURRENT]);
+						zx0_Decompress(mainimage, VARGCI_appvar[1+FRAME_CURRENT]);
 						#else
 						zx0_Decompress(mainimage, frame_anim[FRAME_CURRENT]);
 						#endif
@@ -339,7 +339,7 @@ void switch_gamemode(unsigned char mode)
 			bcd[2] = 48;
 			bcd[3] = '\0';
 			#ifdef ARCHIVE_APP
-			zx0_Decompress(mainimage, vargci_appvar[1+FRAME_CURRENT]);
+			zx0_Decompress(mainimage, VARGCI_appvar[1+FRAME_CURRENT]);
 			#else
 			zx0_Decompress(mainimage, frame_anim[FRAME_CURRENT]);
 			#endif
@@ -355,7 +355,7 @@ void switch_gamemode(unsigned char mode)
 						hibcd[0] = bcd[0];
 						hibcd[1] = bcd[1];
 						hibcd[2] = bcd[2];
-						filesave = ti_Open("VarCIH", "wb");
+						filesave = ti_Open("VARCIH", "wb");
 						if (filesave != 0)
 						{
 							ti_Write(hibcd, sizeof(hibcd), 1, filesave);

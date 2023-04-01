@@ -45,9 +45,9 @@ converts:
       
 outputs:
   - type: appvar
-    name: vargci
+    name: VARGCI
     source-format: c
-    include-file: vargci.h
+    include-file: VARGCI.h
     header-string: STRING
     palettes:
       - global_palette
