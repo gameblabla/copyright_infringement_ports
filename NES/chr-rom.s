@@ -1,0 +1,9 @@
+.section .chr_rom,"a",@progbits
+.incbin "font.chr"
+.incbin "porntest.chr"
+.incbin "porn2.chr"
+.incbin "porn3.chr"
+.incbin "porn4.chr"
+.incbin "porn5.chr"
+.incbin "porn6.chr"
+.incbin "bakura.chr"

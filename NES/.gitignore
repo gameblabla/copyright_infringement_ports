@@ -1,0 +1,6 @@
+*.png
+*.mlb
+*.nes
+*.elf
+old/
+*.zip
