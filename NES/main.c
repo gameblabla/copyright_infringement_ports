@@ -36,7 +36,7 @@ static char pad1_new;
 static unsigned char status;
 static unsigned short time_game;
 
-extern const char music_data[];
+
 void switch_gamemode(unsigned char mode);
 
 
@@ -79,7 +79,7 @@ const unsigned char ingame_quote_offset[4] =
 	* \x27 : ?
 	* \x28 : .
 */
-static unsigned char text_buffer[57];
+static unsigned char text_buffer[82];
 void Print_text(char* text, unsigned char x, unsigned char y)
 {
 	unsigned char t, size_txt_buffer;
@@ -131,13 +131,15 @@ static inline void Play_Voice(unsigned char v)
 	//set_prg_8000(0);
 }*/
 
-#define Play_Voice(v) set_prg_8000(14); sample_play(v); set_prg_8000(0);
+
 
 
 #define KEEPITUP_GAME_STATUS 0
 #define STOP_GAME_STATUS 1
 #define FUCK_GAME_STATUS 2
 #define END_GAME_STATUS 3
+
+unsigned char toggle_sound_status;
 
 const unsigned char status_level1[12] =
 { 
@@ -175,31 +177,83 @@ static void Sprite_Update_Game()
 const unsigned char jump[5] = 
 { 3, 0xFF, 0, 0xFF, 1 };
 
-unsigned char DELAY_VOICE_1, DELAY_VOICE_2;
+
+
+extern const char dialogue1_data[];
+extern const char dialogue2_data[];
+extern const char dialogue3_data[];
+extern const char dialogue4_data[];
+extern const char dialogue5_data[];
+extern const char dialogue6_data[];
+extern const char dialogue7_data[];
+extern const char ingame_data[];
+extern const char results_data[];
+
+void Play_Voice_banked(unsigned char voice_number, unsigned char bank, unsigned char duration)
+{
+	set_prg_8000(bank);
+
+	switch(bank)
+	{
+		case 14:
+			music_init(dialogue1_data);
+		break;
+		case 16:
+			music_init(dialogue2_data);
+		break;
+		case 18:
+			music_init(dialogue3_data);
+		break;
+		case 20:
+			music_init(dialogue4_data);
+		break;
+		case 22:
+			music_init(dialogue5_data);
+		break;
+		case 24:
+			music_init(dialogue6_data);
+		break;
+		case 26:
+			music_init(dialogue7_data);
+		break;
+		case 30:
+			music_init(results_data);
+		break;
+	}
+	
+	sample_play(voice_number);
+	
+	while(duration--)
+	{
+		ppu_wait_nmi();
+	}
+}
+
+unsigned char delay_voice_sys[5];
 
 int main(void) {
 	// NTSC is default
-	DELAY_VOICE_1 = 120;
-	DELAY_VOICE_2 = 80;
-	
+	delay_voice_sys[0] = 60;
+	delay_voice_sys[1] = 85;
+	delay_voice_sys[2] = 80;
+	delay_voice_sys[3] = 70;
+	delay_voice_sys[4] = 100;
+
 	// if PAL adjust it again
 	if (ppu_system() == 0)
 	{
-		DELAY_VOICE_1 = 100;
-		DELAY_VOICE_2 = 60;
+		delay_voice_sys[0] = 50;
+		delay_voice_sys[1] = 70;
+		delay_voice_sys[2] = 66;
+		delay_voice_sys[3] = 58;
+		delay_voice_sys[4] = 83;
 	}
-	
-	// Use banking as we were running out of space
-	//music_init(music_data);
-	banked_music_init(14, music_data);
 
 	oam_size(0);
 	bank_spr(1);
 	
 	oam_clear();
-
 	switch_gamemode(0);
-
 
 	while (1) 
 	{
@@ -257,20 +311,27 @@ int main(void) {
 				{
 					if (pad1_new & PAD_A)
 					{
-						if (status_level1[status] == KEEPITUP_GAME_STATUS)
+						sample_play(1);
+						if (toggle_sound_status == 1)
 						{
-							Play_Voice(1);
+							if (status_level1[status] == KEEPITUP_GAME_STATUS)
+							{
+								sample_play(3);
+								toggle_sound_status = 0;
+							}
+							if (status_level1[status] == FUCK_GAME_STATUS)
+							{
+								sample_play(2);
+								toggle_sound_status = 0;
+							}
 						}
-						if (status_level1[status] == FUCK_GAME_STATUS)
-						{
-							Play_Voice(2);
-						}
+
 						FRAME_CURRENT = 1;
 					}
 				}
 				
 				
-				if (time_game > DELAY_VOICE_1<<2)
+				if (time_game > delay_voice_sys[4]<<2)
 				{
 					if (status_level1[status] == END_GAME_STATUS)
 					{
@@ -280,66 +341,76 @@ int main(void) {
 					{
 						time_game = 0;
 						status++;
+						toggle_sound_status = 1;
 						Sprite_Update_Game();
 					}
 				}
 
 			break;
 			case 3:
-				if (delayf == DELAY_VOICE_1)
+				if (delayf > 20)
 				{
-					if (text_progress == 0)
-					{
-						Play_Voice(8);
-					}
-				}
-				if (delayf == DELAY_VOICE_2)
-				{
-					if (text_progress == 1)
-					{
-						Play_Voice(4);
-					}	
-				}
-				
-				if (pad1_new & PAD_A && delayf > 20)
-				{
-					text_progress++;
-					delayf = 0;
-
-					if (text_progress > 4)
+					if (pad1_new & PAD_START)
 					{
 						switch_gamemode(4);
 					}
-					else
+					
+					if (pad1_new & PAD_A)
 					{
-						set_vram_buffer();
-						Clear_Text();
-						ppu_wait_nmi();
-						
-						set_vram_buffer();
-						switch(text_progress)
+						text_progress++;
+						delayf = 0;
+
+						if (text_progress > 5)
 						{
-							case 1:
-								Print_text("I\x25M RIKUTO\x28 I OFFER YOU A", 1, 24);
-								Print_text("CHANCE TO PROVE YOUR WORTH", 1, 25);
-								Play_Voice(5);
-							break;
-							case 2:
-								Print_text("DON\x25T BE SCARED", 1, 24);
-								Print_text("IT WILL BE FUN \x24", 1, 25);
-								Play_Voice(9);
-							break;
-							case 3:
-								Print_text("YOUR CHALLENGE IS GOING BE", 1, 24);
-								Print_text("THIS\x26 PUNISH THEM\x24", 1, 25);
-								Play_Voice(6);
-							break;
-							case 4:
-								Print_text("DON\x25T LIKE IT\x27 YOUR LOSS\x24", 1, 24);
-								Play_Voice(3);
-							break;
+							switch_gamemode(4);
 						}
-						ppu_wait_nmi();
+						else
+						{
+							set_vram_buffer();
+							Clear_Text();
+							ppu_wait_nmi();
+							
+							set_vram_buffer();
+							switch(text_progress)
+							{
+								case 1:
+									Print_text("YOU\x25RE GOING TO BE THE PERFECT", 1, 24);
+									Print_text("VICTIM FOR MY GAMES\x24", 1, 25);
+									ppu_wait_nmi();
+									Play_Voice_banked(1, 18, delay_voice_sys[2]);
+									Play_Voice_banked(2, 18, delay_voice_sys[2]);
+								break;
+								case 2:
+									Print_text("I\x25M RIKUTO\x28 I OFFER YOU A", 1, 24);
+									Print_text("CHANCE TO PROVE YOUR WORTH", 1, 25);
+									Print_text("IN A TRIAL\x28", 1, 26);
+									ppu_wait_nmi();
+									Play_Voice_banked(2, 20, delay_voice_sys[2]);
+									Play_Voice_banked(1, 20, delay_voice_sys[3]);
+									Play_Voice_banked(2, 22, delay_voice_sys[2]);
+								break;
+								case 3:
+									Print_text("DON\x25T BE SCARED", 1, 24);
+									Print_text("IT WILL BE FUN \x24", 1, 25);
+									ppu_wait_nmi();
+									Play_Voice_banked(1, 22, delay_voice_sys[2]);
+								break;
+								case 4:
+									Print_text("YOUR CHALLENGE IS GOING BE", 1, 24);
+									Print_text("THIS\x26YOU\x25LL ON THE OTHER END", 1, 25);
+									Print_text("AND PUNISH THEM\x24", 1, 26);
+									ppu_wait_nmi();
+									Play_Voice_banked(1, 24, delay_voice_sys[4]);
+									Play_Voice_banked(2, 24, delay_voice_sys[4]);
+								break;
+								case 5:
+									Print_text("DON\x25T LIKE IT\x27 YOUR LOSS\x24", 1, 24);
+									ppu_wait_nmi();
+									Play_Voice_banked(1, 26, delay_voice_sys[4]);
+								break;
+							}
+							
+						}
 					}
 				}
 			break;
@@ -420,6 +491,11 @@ void switch_gamemode(unsigned char mode)
 			Sprite_Update_Game();
 			
 			ppu_on_all();
+			
+			// Switch to bank for ingame voices
+			set_prg_8000(28);
+			music_init(ingame_data);
+			toggle_sound_status = 0;
 		break;
 		case 2:
 			Display_Bakura(1);
@@ -428,15 +504,18 @@ void switch_gamemode(unsigned char mode)
 			if (bcd[0] < 2)
 			{
 				Print_text("GUESS YOU WILL STAY HERE\x24", 1, 24);
+				Play_Voice_banked(1, 30, delay_voice_sys[4]);
 			}
-			else if (bcd[0] < 4)
+			else if (bcd[0] < 3)
 			{
 				Print_text("NOT BAD BUT YOU CAN DO BETTER\x24", 1, 24);
+				Play_Voice_banked(1, 30, delay_voice_sys[4]);
 			}
 			else
 			{
 				Print_text("CONGRATS\x24 YOU WIN THIS TIME\x24", 1, 24);
 				Print_text("I WILL SEE YOU LATER\x28\x28\x28", 1, 25);
+				Play_Voice_banked(2, 30, delay_voice_sys[4]);
 			}
 			
 			ppu_wait_nmi();
@@ -449,8 +528,9 @@ void switch_gamemode(unsigned char mode)
 			Print_text("YOU LOOK SO INNOCENT", 1, 25);
 			ppu_wait_nmi();
 
-
-			Play_Voice(7);
+			Play_Voice_banked(1, 14, delay_voice_sys[0]); //Oh my !
+			Play_Voice_banked(2, 16, delay_voice_sys[1]); //What do we have here
+			Play_Voice_banked(1, 16, delay_voice_sys[2]); //You look so innocent
 		break;
 		case 4:
 			Display_Bakura(0);

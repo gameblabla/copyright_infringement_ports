@@ -286,9 +286,7 @@ This game is also illsuited for the NES as the PPU isn't designed for bitmapped 
 Updating the nametable takes too many cycles so the only proper way of getting close to that was to swap out the CHR banks, which is what i did.
 
 The NES also has hardware DPCM support but the way it's laid out means that if you need more than 16kb, you'll have to switch banks.
-Sadly i was not able to get this working with llvm-mos so for now i had to compress all of the dialogue/sound stuff down to 16kb.
-
-The MMC3 was still useful for moving the music data/famitone2 to other banks tho, as the game already was using up most of it already.
+This port does make extensive use of voices, even further than the MSX2 version as they are used ingame also.
 Overall, it wasn't too difficult but this console isn't as easy as it may seem at first !
 
 [Download NES version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-NES)
