@@ -291,3 +291,17 @@ Overall, it wasn't too difficult but this console isn't as easy as it may seem a
 
 [Download NES version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-NES)
 
+
+Commodore 64
+==================
+![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/c64.jpg)
+
+The Commodore 64 is, much like the NES, illsuited for this kind of game although not as bad as the NES was in this regard.
+The biggest issue is that it's simply too slow to update 8k + 2k of color fast enough on the puny 6502 that's in the C64.
+In the end i resorted to B&W graphics in the bitmapped multicolor mode and that sort of works OK enough to get around 6 frames per second.
+The only instance of the game having colors is in the Rikuto screens...
+
+There's also some PCM samples in there although it's heavily downsampled, 4-bits and you can barely make out what he says.
+I still wanted to include it however.
+
+[Download C64 version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-C64)
