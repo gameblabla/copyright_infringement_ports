@@ -289,19 +289,20 @@ int main(void) {
 					}
 					
 					FRAME_CURRENT++;
-					if (FRAME_CURRENT > 3) FRAME_CURRENT = 0;
+					if (FRAME_CURRENT > 4) FRAME_CURRENT = 0;
 					switch(FRAME_CURRENT)
 					{
 						case 0:
+						case 1:
 							Draw_firstframe();
 						break;
-						case 1:
+						case 2:
 							Draw_frame2();
 						break;
-						case 2:
+						case 3:
 							Draw_frame3();
 						break;
-						case 3:
+						case 4:
 							Draw_frame4();
 						break;
 					}

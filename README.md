@@ -305,3 +305,27 @@ There's also some PCM samples in there although it's heavily downsampled, 4-bits
 I still wanted to include it however.
 
 [Download C64 version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-C64)
+
+NEC PC-88
+==================
+![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/pc88.jpg)
+
+The NEC PC-88 (and the PC-98) is the home to numerous hentai games. 
+Thus, this game should have perfectly suitable for this hardware.
+Except not really, because outside of japanese documents (and even then, there's not a huge lot of it!),
+they are surprisingly poorly documented.
+I did get a VGM player working on it thanks to pc88-c but since i can't compose anything on it,
+all you gonna get are simple beeps. Oh and forget about the ADPCM card, i have no idea how to use that either.
+(Most PC-88 don't have it anyway)
+
+The other big issue is the huge amount of VRAM it needs to update and the lackluster CPU for it.
+I mean, updating 48kb multiple times per second on a puny Z80 is no small task !
+I cheated a little bit by downgrading it to 4 colors in game to get it in a playable state.
+It works but you can still see the graphics chip struggling to keep up.
+
+I'm sure with delta compression, compressed code etc... i could get it further than this
+but even if i could figure that out, z88dk's support for non-CP/M platforms is also lackluster as well !
+
+I think i did a decent-ish job but it could have been better even considering the hardware.
+
+[Download PC-88 version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-PC88)
