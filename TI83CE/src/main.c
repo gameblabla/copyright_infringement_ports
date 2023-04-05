@@ -47,31 +47,12 @@ const char ingame_quote[5][12] =
 const unsigned char jump[5] = 
 { 3, 0xFF, 0, 0xFF, 1 };
 
-static char bcd[4];
-static char hibcd[4];
+static unsigned short score;
+static unsigned short highscore;
 
-#define add_score(add) \
-	bcd[2] += add; \
-	if (bcd[2] > 57) { \
-		bcd[1]+= 1; \
-		bcd[2] = 48; } \
-	if (bcd[1] > 57) { \
-		bcd[0]+= 1; \
-		bcd[1] = 48; } \
+#define add_score(add) score += add;
 
-#define decrease_score(dec) \
-	bcd[2] -= dec; \
-	if (bcd[2] < 48) \
-	{ \
-		bcd[1]-= 1; \
-		bcd[2] = 57; \
-	} \
-	if (bcd[1] < 48) \
-	{ \
-		bcd[0]-= 1; \
-		bcd[1] = 57; \
-	} \
-
+#define decrease_score(dec) score -= dec;
 
 kb_key_t key;
 uint8_t prevkey;
@@ -107,17 +88,14 @@ int main()
 	
 	mainimage = gfx_MallocSprite(160, 100);
 	
-	hibcd[0] = 48;
-	hibcd[1] = 48;
-	hibcd[2] = 48;
+	highscore = 0;
 	
-	filesave = ti_Open("VARCIH", "rb");
+	filesave = ti_Open("VARCIH", "r");
 	if (filesave != 0)
 	{
-		ti_Read(hibcd, sizeof(hibcd), 1, filesave);
+		ti_Read(&highscore, sizeof(highscore), 1, filesave);
 		ti_Close(filesave);
 	}
-	hibcd[3] = '\0';
 	
 	switch_gamemode(0);
 
@@ -141,7 +119,8 @@ int main()
 				gfx_PrintStringXY("BY GAMEBLABLA", 12 * 8, 120);
 				
 				gfx_PrintStringXY("HISCORE", 0, 200-8-8);
-				gfx_PrintStringXY(hibcd, 0, 200-8);
+				gfx_SetTextXY(0,200-8);
+				gfx_PrintUInt(highscore, 5);
 				
 				gfx_PrintStringXY("PRESS KEY TO START", 10 * 8, 180);
 				
@@ -154,7 +133,7 @@ int main()
 				{
 					if (status_level1[status] == STOP_GAME_STATUS)
 					{
-						if (!(bcd[2] == 48 && bcd[0] == 48 && bcd[1] == 48)) 
+						if (!(score == 0)) 
 						{
 							decrease_score(1);
 						}
@@ -207,7 +186,8 @@ int main()
 				gfx_ZeroScreen();
 				gfx_ScaledSprite_NoClip(mainimage, 0, 0, 2, 2);
 				gfx_PrintStringXY("SCORE", 0, 200);
-				gfx_PrintStringXY(bcd, 0, 208);
+				gfx_SetTextXY(0,208);
+				gfx_PrintUInt(score, 5);
 				gfx_PrintStringXY(ingame_quote[status_level1[status]], 160, 200);
 				
 				gfx_BlitBuffer();
@@ -227,7 +207,6 @@ int main()
 				
 				gfx_ZeroScreen();
 				gfx_ScaledSprite_NoClip(mainimage, 0, 0, 2, 2);
-				gfx_Rectangle_NoClip(0, 180, 320, 64);
 				switch(text_progress)
 				{
 					case 0:
@@ -266,14 +245,15 @@ int main()
 				gfx_ScaledSprite_NoClip(mainimage, 0, 0, 2, 2);
 				
 				gfx_PrintStringXY("Your SCORE was ", 0, 0);
-				gfx_PrintStringXY(bcd, 104, 0);
+				gfx_SetTextXY(104,0);
+				gfx_PrintUInt(score, 5);
 
-				if (bcd[0] < 48+1)
+				if (score < 1)
 				{
 					gfx_PrintStringXY("Guess you'll stay there for a while...", 0, 200);
 					gfx_PrintStringXY("Hahaha !", 0, 208);
 				}
-				else if (bcd[0] < 48+2)
+				else if (score < 2)
 				{
 					gfx_PrintStringXY("Not bad but you can do better!", 0, 200);
 					gfx_PrintStringXY("Otherwise you can't leave this place!", 0, 208);
@@ -334,10 +314,7 @@ void switch_gamemode(unsigned char mode)
 
 		break;
 		case 1:
-			bcd[0] = 48;
-			bcd[1] = 48;
-			bcd[2] = 48;
-			bcd[3] = '\0';
+			score = 0;
 			#ifdef ARCHIVE_APP
 			zx0_Decompress(mainimage, VARGCI_appvar[1+FRAME_CURRENT]);
 			#else
@@ -346,23 +323,15 @@ void switch_gamemode(unsigned char mode)
 		break;
 		case 2:
 			zx0_Decompress(mainimage, yami_compressed);
-			if (bcd[0] > hibcd[0])
+			if (score > highscore)
 			{
-				if (bcd[1] > hibcd[1])
-				{
-					if (bcd[2] > hibcd[2])
-					{
-						hibcd[0] = bcd[0];
-						hibcd[1] = bcd[1];
-						hibcd[2] = bcd[2];
-						filesave = ti_Open("VARCIH", "wb");
-						if (filesave != 0)
-						{
-							ti_Write(hibcd, sizeof(hibcd), 1, filesave);
-							ti_Close(filesave);
-						}
-					}
-				}
+				highscore = score;
+			}
+			filesave = ti_Open("VARCIH", "w");
+			if (filesave != 0)
+			{
+				ti_Write(&highscore, sizeof(highscore), 1, filesave);
+				ti_Close(filesave);
 			}
 		break;
 		case 3:
