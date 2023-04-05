@@ -72,6 +72,7 @@ void Clear_Text()
 
 unsigned char k, game_mode, text_progress;
 #define FRAME_CURRENT text_progress
+signed char diff;
 
 void switch_gamemode(unsigned char mode) ;
 
@@ -90,8 +91,7 @@ const unsigned char status_level1[] =
 };
 
 unsigned char status;
-unsigned char i, c;
-#define delay i
+unsigned char i;
 unsigned short time_game;
 
 const char ingame_quote[5][12] =
@@ -312,17 +312,18 @@ void switch_gamemode(unsigned char mode)
 			DrawString("Your SCORE was ", 0, 0);
 			DrawString(bcd, 15, 0);
 			
-			if (bcd[0] > hibcd[0])
+			//Canonical approach, thanks calcmaniac
+			diff = bcd[0] - hibcd[0];
+			if (diff == 0)
+				diff = bcd[1] - hibcd[1];
+			if (diff == 0)
+				diff = bcd[2] - hibcd[2];
+				
+			if (diff > 0)
 			{
-				if (bcd[1] > hibcd[1])
-				{
-					if (bcd[2] > hibcd[2])
-					{
-						hibcd[0] = bcd[0];
-						hibcd[1] = bcd[1];
-						hibcd[2] = bcd[2];
-					}
-				}
+				hibcd[0] = bcd[0];
+				hibcd[1] = bcd[1];
+				hibcd[2] = bcd[2];
 			}
 			
 			Clear_Text();
@@ -356,7 +357,6 @@ void switch_gamemode(unsigned char mode)
 			DrawString("Your goal is to FUCK Zhongli!", 0, 8);
 			DrawString("Follow the instructions to get points", 0, 16);
 			DrawString("Penetrate him by pressing a key", 0, 24);
-			DrawString("then pull out by releasing it.", 0, 32);
 			DrawString("Good luck !", 0, 64);
 		break;
 	}
