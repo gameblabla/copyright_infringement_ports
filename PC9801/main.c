@@ -11,12 +11,17 @@
 #include <i86.h>
 #include <fcntl.h>
 #include <math.h>
+#include <stddef.h>   // For size_t
+
 
 #include "gdc.h"
 #include "bios.h"
 
+
 #include "gfx.h"
 #include "input.h"
+#include "pmd.h"
+
 
 const unsigned char bakura_palette[] = {
     0x00, 0x00, 0x00,
@@ -59,6 +64,7 @@ const unsigned char porn_palette[] = {
     0x0F, 0x0E, 0x0D,
 };
 
+/*
 unsigned char title_palette[] = {
     0x02, 0x02, 0x02,
     0x02, 0x04, 0x03,
@@ -77,13 +83,16 @@ unsigned char title_palette[] = {
     0x06, 0x0D, 0x0D,
     0x06, 0x0E, 0x09,
 };
+*/
+
+#define INTENSITY_FRAME 1 // Looks nasty if disabled (this was a test)
+#define PREALLOCATE 1 // This exists as to prevent memory issues (fragmentation ???)
 
 unsigned short offset_frames[4][4];
 
 extern void zx0_decompress();
 extern void lzsa1_decompress();
 
-#define SIZE 32000
 unsigned char* hold_graph[4];
 unsigned char font_graph, index_t, dst;
 
@@ -98,18 +107,21 @@ void Load_Bitmap_Part(const char* filename, unsigned char* hold_graph[], unsigne
 	size_t totalsize;
 
 	_dos_open (filename, O_RDONLY, &fd);
-	
+
+#if !defined(PREALLOCATE)
 	if (!hold_graph[index])
 	{
 		free(hold_graph[index]);
 		hold_graph[index] = NULL;
 	}
 	hold_graph[index] = (unsigned char*) malloc(size);
+#endif
 
 	_dos_read (fd, (char*)hold_graph[index], size, &totalsize);
 	_dos_close (fd);
 }
 
+/*
 void Load_Bitmap(const char* filename, unsigned char* hold_graph[], unsigned long size, unsigned char num_graphs)
 {
 	int fd;
@@ -128,10 +140,10 @@ void Load_Bitmap(const char* filename, unsigned char* hold_graph[], unsigned lon
     }
 	_dos_close (fd);
 }
-
+*/
 void Clear_Bitmap(unsigned char *hold_graph[])
 {
-	unsigned short i;
+	unsigned char i;
 	for (i = 0; i < 4; i++)
 	{
 		if (hold_graph[i])
@@ -141,6 +153,7 @@ void Clear_Bitmap(unsigned char *hold_graph[])
         }
 	}	
 }
+
 
 static void CAL_Zx0Expand (uint8_t *source, uint8_t *dest)
 {
@@ -242,6 +255,7 @@ const unsigned char jump[5] =
 static unsigned char bcd[4];
 static unsigned char hibcd[4];
 unsigned short delay_game;
+unsigned char toggle_sound_status;
 
 void DrawString(const char* str, unsigned char x, unsigned char y)
 {
@@ -279,18 +293,96 @@ void Refresh_screen()
 	gfx_wait_vsync();	
 }
 
-static inline Draw_Frame()
+static void Draw_Frame()
 {
 	CAL_LZSAExpand(hold_graph[FRAME_CURRENT], GDC_PLANE_1);
 	CAL_LZSAExpand(hold_graph[FRAME_CURRENT] + offset_frames[FRAME_CURRENT][0], GDC_PLANE_2);
 	CAL_LZSAExpand(hold_graph[FRAME_CURRENT] + (offset_frames[FRAME_CURRENT][0]+offset_frames[FRAME_CURRENT][1]), GDC_PLANE_3);
+#ifdef INTENSITY_FRAME
 	CAL_LZSAExpand(hold_graph[FRAME_CURRENT] + (offset_frames[FRAME_CURRENT][0]+offset_frames[FRAME_CURRENT][1]+offset_frames[FRAME_CURRENT][2]), GDC_PLANE_4);	
+#endif
 }
+/*
+const char index_voices[6][10] = 
+{
+	"DIAL1.P86",
+	"DIAL2.P86",
+	"DIAL3.P86",
+	"DIAL4.P86",
+	"DIAL5.P86",
+};
+*/
+
+unsigned char music, voices_enabled;
+unsigned char fuck_status;
+
+void Check_Music_Driver()
+{
+    if (check_pmd() == 0)
+    {
+		// We found PCM signature
+		// Now check for PCM86's
+		if (check_pcm86() == 0)
+		{
+			// P86DRV's signature found, playing back music with this instead
+			if (initialize_p86() == 0)
+			{
+				// We will only load the voice lines on the fly
+				if (load_p86_file("GAME.P86") == 0)
+				{
+					voices_enabled = 2;
+				}
+			}
+		}
+		// Assume that driver being usesd is PMDB2
+		else
+		{
+			voices_enabled = 1;
+		}
+	}
+
+}
+
+static void PMD_Play_Voice(unsigned char vc)
+{
+	if (voices_enabled == 2)
+	{
+		// 16540 hz, 0x2200
+		pmd_play_pcm_sound_effect(vc, 0x2200, 0, 255);
+	}
+	else if (voices_enabled == 1)
+	{
+		// 16540 hz, 0x2200
+		pmd_play_pcm_sound_effect(vc, 2540+16000, 2, 255);
+	}
+}
+
+#define PMD_Stop() if (voices_enabled > 0) pmd_play_pcm_sound_effect(254, 0, 0, 0);
+
+/*
+void __far *AllocHuge(size_t BlockSize) {
+    unsigned int segaddr;
+
+    if (_dos_allocmem((unsigned short) ((BlockSize + 15) >> 4), &segaddr)) {
+		exit(1);
+        return NULL;
+    } else {
+        return MK_FP(segaddr, 0);
+    }
+}
+*/
+
 
 int main() 
 {
 	unsigned char done;
+	
+	voices_enabled = 0;
+	music = 0;
+	Check_Music_Driver();
+	
 	gfx_init();
+
 	
 	hibcd[0] = 48;
 	hibcd[1] = 48;
@@ -300,8 +392,32 @@ int main()
 	switch_gamemode(0);
 	done = 0;
 
+#if defined(PREALLOCATE)
+	hold_graph[0] = malloc(10259+12609+9495
+#ifdef INTENSITY_FRAME
+	+6455
+#endif
+	);
+	hold_graph[1] = malloc(12517+14051+11218
+#ifdef INTENSITY_FRAME
+	+7352
+#endif
+	);
+	hold_graph[2] = malloc(12755+13016+9861
+#ifdef INTENSITY_FRAME
+	+6648
+#endif
+	);
+	hold_graph[3] = malloc(12051+12714+9422
+#ifdef INTENSITY_FRAME
+	+6386
+#endif
+	);	
+#endif
+
 	while (!done)
 	{
+		delay_game++;
 		Get_Input();
 		
 		if (inputs[ESC_KEY] == 1)
@@ -312,7 +428,7 @@ int main()
 		switch(game_mode)
 		{
 			default:
-				if (inputs[SPACE_KEY])
+				if (inputs[SPACE_KEY] && delay_game > 60)
 				{
 					switch_gamemode(jump[game_mode]);
 				}
@@ -320,37 +436,56 @@ int main()
 			case 1:
 				time_game+=1;
 
-				if (FRAME_CURRENT > 0 && status_level1[status] != END_GAME_STATUS)
+				// If Character is fucking
+				if (fuck_status == 1)
 				{
-					if (status_level1[status] == STOP_GAME_STATUS)
+					if (status_level1[status] != END_GAME_STATUS)
 					{
-						if (!(bcd[2] == 48 && bcd[0] == 48 && bcd[1] == 48)) 
+						if (status_level1[status] == STOP_GAME_STATUS)
 						{
-							decrease_score(1);
+							if (!(bcd[2] == 48 && bcd[0] == 48 && bcd[1] == 48)) 
+							{
+								decrease_score(1);
+							}
 						}
+						else
+						{
+							add_score(1);
+						}
+						
+						Draw_Frame();
+						
+						DrawString("SCORE", 0, 20);
+						DrawString(bcd, 0, 21);
+						Refresh_screen();
+						
+						FRAME_CURRENT++;
+						if (FRAME_CURRENT > 3)
+						{
+							FRAME_CURRENT = 0;
+							fuck_status = 0;
+						}
+						
+						time_game += 2;
 					}
-					else
-					{
-						add_score(1);
-					}
-					
-					Draw_Frame();
-					
-					FRAME_CURRENT++;
-					if (FRAME_CURRENT > 3) FRAME_CURRENT = 0;
-					
-					DrawString("SCORE", 0, 20);
-					DrawString(bcd, 0, 21);
-					Refresh_screen();
-					
-					time_game += 2;
 				}
 				
-				if (FRAME_CURRENT == 0)
+				// If Standby
+				if (fuck_status == 0)
 				{
 					if (inputs[SPACE_KEY] == 1)
 					{
-						FRAME_CURRENT = 1;
+						PMD_Play_Voice(5);
+						
+						if (toggle_sound_status == 1)
+						{
+							if (status_level1[status] == KEEPITUP_GAME_STATUS)
+							{
+								PMD_Play_Voice(6);
+								toggle_sound_status = 0;
+							}
+						} 
+						fuck_status = 1;
 					}
 				}
 				
@@ -366,6 +501,7 @@ int main()
 						time_game = 0;
 						status++;
 						DrawString(ingame_quote[status_level1[status]], 0, 24);
+						toggle_sound_status = 1;
 					}
 				}
 				
@@ -373,7 +509,6 @@ int main()
 				
 			break;
 			case 3:
-				delay_game++;
 				if (inputs[SPACE_KEY] && delay_game > 25)
 				{
 					text_progress++;
@@ -384,8 +519,8 @@ int main()
 					}
 					else
 					{
-						CLEAR_TXT();
-						
+						CLEAR_TEXT_VRAM();
+						PMD_Play_Voice(text_progress);
 						switch(text_progress)
 						{
 							case 1:
@@ -393,13 +528,13 @@ int main()
 							break;
 							case 2:
 								DrawString("I'm Rikuto, i offer you the chance to prove your worth in a trial.", 0, 22);
-
 							break;
 							case 3:
 								DrawString("Don't be scared, it'll be fun!", 0, 22);
 							break;
 							case 4:
-								DrawString("Your challenge will be this: you'll be on the other end and punish them !", 0, 22);
+								DrawString("Your first challenge is going to be this:", 0, 22);
+								DrawString("You'll be on the other end and punish them !", 0, 23);
 							break;
 						}
 					}
@@ -414,6 +549,8 @@ int main()
 		
 	}
 	
+	Clear_Bitmap(hold_graph);
+	PMD_Stop();
 	gfx_end();
 	return 0;
 }
@@ -427,6 +564,8 @@ void switch_gamemode(unsigned char mode)
 	i = 0;
 	delay_game = 0;
 	FRAME_CURRENT = 0;
+	fuck_status = 0;
+	toggle_sound_status = 0;
 	
 	memset(GDC_PLANE_1, 0, 32000);
 	memset(GDC_PLANE_2, 0, 32000);
@@ -434,15 +573,16 @@ void switch_gamemode(unsigned char mode)
 	memset(GDC_PLANE_4, 0, 32000);
 	
 	CLEAR_TEXT_VRAM();
+	gfx_fill_palette(bakura_palette, sizeof(bakura_palette) / 3);
 	
 	switch(mode)
 	{
 		case 0:
-			Load_Bitmap_Part("TITLE.ZX0", hold_graph, 15182+13796+10395+6496, 0);
+		/*	Load_Bitmap_Part("TITLE.ZX0", hold_graph, 15182+13796+10395+6496, 0);
 			CAL_Zx0Expand(hold_graph[0], GDC_PLANE_1);
 			CAL_Zx0Expand(hold_graph[0] + 15182, GDC_PLANE_2);
 			CAL_Zx0Expand(hold_graph[0] + (15182+13796), GDC_PLANE_3);
-			CAL_Zx0Expand(hold_graph[0] + (15182+13796+10395), GDC_PLANE_4);
+			CAL_Zx0Expand(hold_graph[0] + (15182+13796+10395), GDC_PLANE_4);*/
 		
 			DrawString("COPYRIGHT INFRINGEMENT", 30, 0);
 			DrawString("BY GAMEBLABLA", 34, 1);
@@ -451,8 +591,6 @@ void switch_gamemode(unsigned char mode)
 			DrawString(hibcd, 0, 21);
 			
 			DrawString("PRESS KEY TO START", 31, 22);
-			
-			gfx_fill_palette(title_palette, sizeof(title_palette) / 3);
 			
 			Refresh_screen();
 		break;
@@ -468,25 +606,41 @@ void switch_gamemode(unsigned char mode)
 			offset_frames[0][1] = 11708;
 			offset_frames[0][2] = 9179;
 			offset_frames[0][3] = 6026;
-			Load_Bitmap_Part("FRAME1.BIN", hold_graph, 10259+12609+9495+6455, 0);
+			Load_Bitmap_Part("FRAME1.BIN", hold_graph, 10259+12609+9495
+			#ifdef INTENSITY_FRAME
+			+6455
+			#endif
+			, 0);
 
 			offset_frames[1][0] = 11234;
 			offset_frames[1][1] = 12305;
 			offset_frames[1][2] = 9760;
 			offset_frames[1][3] = 6322;
-			Load_Bitmap_Part("FRAME2.BIN", hold_graph, 12517+14051+11218+7352, 1);
+			Load_Bitmap_Part("FRAME2.BIN", hold_graph, 12517+14051+11218
+			#ifdef INTENSITY_FRAME
+			+7352
+			#endif
+			, 1);
 			
 			offset_frames[2][0] = 10940;
 			offset_frames[2][1] = 12142;
 			offset_frames[2][2] = 9252;
 			offset_frames[2][3] = 6051;
-			Load_Bitmap_Part("FRAME3.BIN", hold_graph, 12755+13016+9861+6648, 2);
+			Load_Bitmap_Part("FRAME3.BIN", hold_graph, 12755+13016+9861
+			#ifdef INTENSITY_FRAME
+			+6648
+			#endif
+			, 2);
 			
 			offset_frames[3][0] = 10383;
 			offset_frames[3][1] = 9778;
 			offset_frames[3][2] = 8943;
 			offset_frames[3][3] = 5968;
-			Load_Bitmap_Part("FRAME4.BIN", hold_graph, 12051+12714+9422+6386, 3);
+			Load_Bitmap_Part("FRAME4.BIN", hold_graph, 12051+12714+9422
+			#ifdef INTENSITY_FRAME
+			+6386
+			#endif
+			, 3);
 			
 			gfx_fill_palette(porn_palette, sizeof(porn_palette) / 3);
 			
@@ -504,8 +658,6 @@ void switch_gamemode(unsigned char mode)
 			CAL_Zx0Expand(hold_graph[0] + 9966, GDC_PLANE_2);
 			CAL_Zx0Expand(hold_graph[0] + (9966+9865), GDC_PLANE_3);
 			CAL_Zx0Expand(hold_graph[0] + (9966+9865+9078), GDC_PLANE_4);
-			
-			gfx_fill_palette(bakura_palette, sizeof(bakura_palette) / 3);
 			
 			DrawString("Your SCORE was ", 0, 0);
 			DrawString(bcd, 15, 0);
@@ -547,7 +699,7 @@ void switch_gamemode(unsigned char mode)
 			CAL_Zx0Expand(hold_graph[0] + (9966+9865), GDC_PLANE_3);
 			CAL_Zx0Expand(hold_graph[0] + (9966+9865+9078), GDC_PLANE_4);
 			
-			gfx_fill_palette(bakura_palette, sizeof(bakura_palette) / 3);
+			PMD_Play_Voice(0);
 			
 			DrawString("Oh my, what do we have here?", 0, 22);
 			DrawString("You look so innocent", 0, 23);
@@ -559,6 +711,7 @@ void switch_gamemode(unsigned char mode)
 			DrawString("Penetrate him by pressing a key", 0, 2);
 			DrawString("Good luck !", 0, 5);
 			Refresh_screen();
+			PMD_Stop();
 		break;
 	}
 	

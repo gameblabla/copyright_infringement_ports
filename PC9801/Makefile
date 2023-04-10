@@ -7,7 +7,7 @@ CFLAGS += $(DEFINES)
 
 OUTPUT = GAME.EXE
 
-SOURCES =  ./main.c gfx.c input.c
+SOURCES =  ./main.c gfx.c input.c pmd.c
 
 all: asm ${OUTPUT}
 

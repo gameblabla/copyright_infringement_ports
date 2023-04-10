@@ -56,8 +56,6 @@ void gfx_init()
 	union REGS in, out;
 	union REGS regs;
 	
-	gfx_store_palette(old_palette, 16);
-	
 	in.h.ah = VGA_MODE;
 	in.h.ch = (3) << 6;
 	int86(INTERRUPT_VGA, &in, &out);
@@ -79,6 +77,8 @@ void gfx_init()
 	int86(INTERRUPT_VGA, &in, &out);
 	/* Start graphical co-GPU. */
 	outp(GDC_GFX_COMMAND, GDC_CMD_START);
+	
+	gfx_store_palette(old_palette, 16);
 			
 	#if 0
 	/* Disable text. */
@@ -118,6 +118,23 @@ void gfx_init()
 		mov	AL,DH
 		int	29h
 		mov	AL,DL
+		
+		int	29h
+	}
+	// Hide system line
+	__asm
+	{
+		mov	DX,'1l'
+		
+		mov	AL,27	; ESC
+		int	29h
+		mov	AL,'['	; '['
+		int	29h
+		mov	AL,'>'	; '>'
+		int	29h
+		mov	AL,DH
+		int	29h
+		mov	AL,DL
 		int	29h
 	}
 }
@@ -126,6 +143,8 @@ void gfx_end()
 {
 	union REGS in, out;
 	
+	CLEAR_TEXT_VRAM();
+
 	gfx_fill_palette(old_palette, 16);
 	
 	/* Clock both GPUs back to 2.5MHz. */
@@ -150,12 +169,12 @@ void gfx_end()
 	outp(GDC_TEXT_COMMAND, GDC_CMD_VSYNC_MASTER);
 	outp(GDC_GFX_COMMAND,  GDC_CMD_VSYNC_SLAVE);
 	
-	CLEAR_TEXT_VRAM();
+	CLEAR_TXT();
 	
 	// Show cursor
 	__asm
 	{
-		mov	DX,'1l'
+		mov	DX,'5l'
 		
 		mov	AL,27	; ESC
 		int	29h
@@ -169,7 +188,30 @@ void gfx_end()
 		int	29h
 	}
 	
-	gfx_fill_palette(old_palette, 16);
+	// Show system line
+	__asm
+	{
+		mov	DX,'1h'
+		
+		mov	AL,27	; ESC
+		int	29h
+		mov	AL,'['	; '['
+		int	29h
+		mov	AL,'>'	; '>'
+		int	29h
+		mov	AL,DH
+		int	29h
+		mov	AL,DL
+		int	29h
+	}
+	
+	// KEY BEEP
+	__asm
+	{
+		xor	AX,AX
+		mov	ES,AX
+		and	byte ptr ES:[500H],NOT 20h	
+	}
 }
 
 void gfx_wait_vsync()

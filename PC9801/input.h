@@ -27,8 +27,22 @@
 #define SPACE_KEY 5
 #define ESC_KEY 6
 
+#define KEY0_GAME 7
+#define KEY1_GAME 8
+#define KEY2_GAME 9
+#define KEY3_GAME 10
+
+#define NUMPAD0_KEY 11
+#define NUMPAD1_KEY 12
+#define NUMPAD2_KEY 13
+
+#define KEY_W 14
+#define KEY_S 15
+#define KEY_A 16
+#define KEY_D 17
+
 // Function prototypes
-extern uint8_t inputs[8];
+extern uint8_t inputs[18];
 extern void Get_Input();
 
 #endif

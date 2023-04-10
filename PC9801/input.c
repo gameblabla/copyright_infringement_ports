@@ -22,7 +22,7 @@
 #include "input.h"
 #include "keys.h"
 
-uint8_t inputs[8] = {0};
+uint8_t inputs[18] = {0};
 
 static union REGS out, in;
 
@@ -39,19 +39,38 @@ static void keygroup_sense(char group_id) {
 
 void Get_Input() 
 {
-	keygroup_sense(3);
-	input_update_bool(inputs[CONFIRM_KEY], (out.h.ah & K3_RETURN));
 	
 	keygroup_sense(0);
 	input_update_bool(inputs[ESC_KEY], (out.h.ah & K0_ESC));
+	input_update_bool(inputs[KEY1_GAME], (out.h.ah & K0_1));
+	input_update_bool(inputs[KEY2_GAME], (out.h.ah & K0_2));
+	input_update_bool(inputs[KEY3_GAME], (out.h.ah & K0_3));
 	
+	keygroup_sense(1);
+	input_update_bool(inputs[KEY0_GAME], (out.h.ah & K1_0));
+	
+	keygroup_sense(2);
+	input_update_bool(inputs[KEY_W], (out.h.ah & K2_W));
+	
+
+	keygroup_sense(3);
+	input_update_bool(inputs[CONFIRM_KEY], (out.h.ah & K3_RETURN));
+	input_update_bool(inputs[KEY_S], (out.h.ah & K3_S));
+	input_update_bool(inputs[KEY_A], (out.h.ah & K3_A));
+	input_update_bool(inputs[KEY_D], (out.h.ah & K3_D));
+
+
 	keygroup_sense(6);
 	input_update_bool(inputs[SPACE_KEY], (out.h.ah & K6_SPACE));
 	
-	keygroup_sense(9);
+	keygroup_sense(7);
 	input_update_bool(inputs[DOWN_KEY], (out.h.ah & K7_ARROW_DOWN));
 	input_update_bool(inputs[UP_KEY], (out.h.ah & K7_ARROW_UP));
 	input_update_bool(inputs[LEFT_KEY], (out.h.ah & K7_ARROW_LEFT));
 	input_update_bool(inputs[RIGHT_KEY], (out.h.ah & K7_ARROW_RIGT));
 	
+	keygroup_sense(9);
+	input_update_bool(inputs[NUMPAD0_KEY], (out.h.ah & K9_NUM_0));
+	input_update_bool(inputs[NUMPAD1_KEY], (out.h.ah & K9_NUM_1));
+	input_update_bool(inputs[NUMPAD2_KEY], (out.h.ah & K9_NUM_2));
 }
