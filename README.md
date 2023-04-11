@@ -11,6 +11,25 @@ Later, another unrelated game for the TI-99/4a (Dragon's Lair) took it a step fu
 and did full motion video with PCM sound at 13khz and on a gigantic 512MB rom !
 
 
+List
+====
+![CBS Colecovision](https://github.com/gameblabla/copyright_infringement_ports#cbs-colecovision)
+![MSX2](https://github.com/gameblabla/copyright_infringement_ports#msx2)
+![ZX Spectrum 48k](https://github.com/gameblabla/copyright_infringement_ports#zx-spectrum-48k)
+![V.Smile](https://github.com/gameblabla/copyright_infringement_ports#vsmile-and-compatibles)
+![Exidy Sorcerer](https://github.com/gameblabla/copyright_infringement_ports#exidy-sorcerer)
+![Sinclair QL](https://github.com/gameblabla/copyright_infringement_ports#sinclair-ql)
+![BK Elektronika BK-0010](https://github.com/gameblabla/copyright_infringement_ports#bk-elektronika-bk-0010)
+![PMD-85](https://github.com/gameblabla/copyright_infringement_ports#pmd-85)
+![LVIV/LVOV PK01](https://github.com/gameblabla/copyright_infringement_ports#lvivlvov-pk01)
+![Excalibur 64](https://github.com/gameblabla/copyright_infringement_ports#excalibur-64)
+![Oric 1/Oric Atmos](https://github.com/gameblabla/copyright_infringement_ports#oric-1oric-atmos)
+![TI 83 CE](https://github.com/gameblabla/copyright_infringement_ports#ti-83-ce)
+![Nintendo NES](https://github.com/gameblabla/copyright_infringement_ports#nes)
+![Commodore 64](https://github.com/gameblabla/copyright_infringement_ports#commodore-64)
+![NEC PC-88](https://github.com/gameblabla/copyright_infringement_ports#nec-pc-88)
+![NEC PC-98](https://github.com/gameblabla/copyright_infringement_ports#nec-pc-98)
+
 CBS Colecovision
 =================
 ![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/cbs.jpg)
@@ -342,4 +361,40 @@ I'm sure with delta compression, compressed code etc... i could get it further t
 but even if i could figure that out, z88dk's support for non-CP/M platforms is also lackluster as well !
 
 I think i did a decent-ish job but it could have been better even considering the hardware.
+</details>
+
+
+NEC PC-98
+==================
+![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/pc98.jpg)
+
+[Download PC-98 version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-PC98)
+
+<details>
+The sucessor to the PC-98 and it sold well, despite NEC releasing better computers like the PC-88VA during its lifetime..
+
+Like NEC PC-88, it was a business machine for the most part and got plenty of adult games because of it.
+On paper, the PC-98 should have enough grunts to have the game run well on this.
+However, this only applies to the later models with 386s, as earlier models may struggle with this game.
+
+Interestingly, the 8 colors 640x200 video mode is exactly the same as the PC-88.
+In fact it's how i initially managed to make my PC-88 work on the PC-98!
+The 16 colors add only adds an intensity plane on top of the RGB ones.
+
+However, because of the greatly increased resolution (640x400) and color count,
+you now have to push a whopping 128kb of VRAM stuff onscreen.
+
+Unlike the PC-88, the address space is large enough to contain it so this isn't the problem...
+The problem is that earlier models have CPUs that are just not fast enough to compensate for the
+increased VRAM count.
+
+There are ways around this, such as instead using the 640x200 16 colors mode.
+However this mode actually won't work on later PC-9821 models as NEC completely dropped it (along with B&W modes).
+
+According to my limited testing, it only becomes smooth at around 20mhz on a 386.
+This version, like the PC-88, acts like a PC-Booter but uses an internal copy of FreeDOS along with DOS 2.0's open sourced
+COMMAND.COM to reduce memory usage further.
+
+The game may use more conventional memory than usual, especially with the P86 mode so be careful.
+
 </details>
