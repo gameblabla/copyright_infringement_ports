@@ -66,22 +66,22 @@ const unsigned char porn_palette[] = {
 
 /*
 unsigned char title_palette[] = {
-    0x02, 0x02, 0x02,
-    0x02, 0x04, 0x03,
-    0x02, 0x05, 0x03,
+    0x00, 0x00, 0x00,
     0x02, 0x05, 0x06,
     0x02, 0x05, 0x0B,
-    0x05, 0x05, 0x03,
-    0x03, 0x06, 0x06,
-    0x02, 0x07, 0x02,
-    0x02, 0x0A, 0x05,
-    0x03, 0x09, 0x0D,
-    0x05, 0x0A, 0x02,
+    0x02, 0x06, 0x04,
     0x09, 0x09, 0x02,
-    0x03, 0x0A, 0x0A,
-    0x02, 0x0C, 0x03,
-    0x06, 0x0D, 0x0D,
-    0x06, 0x0E, 0x09,
+    0x03, 0x0C, 0x02,
+    0x05, 0x0B, 0x0C,
+    0x05, 0x0C, 0x07,
+    0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00,
 };
 */
 
@@ -359,20 +359,6 @@ static void PMD_Play_Voice(unsigned char vc)
 
 #define PMD_Stop() if (voices_enabled > 0) pmd_play_pcm_sound_effect(254, 0, 0, 0);
 
-/*
-void __far *AllocHuge(size_t BlockSize) {
-    unsigned int segaddr;
-
-    if (_dos_allocmem((unsigned short) ((BlockSize + 15) >> 4), &segaddr)) {
-		exit(1);
-        return NULL;
-    } else {
-        return MK_FP(segaddr, 0);
-    }
-}
-*/
-
-
 int main() 
 {
 	unsigned char done;
@@ -509,7 +495,7 @@ int main()
 				
 			break;
 			case 3:
-				if (inputs[SPACE_KEY] && delay_game > 25)
+				if (inputs[SPACE_KEY] && delay_game > 60)
 				{
 					text_progress++;
 
@@ -573,16 +559,17 @@ void switch_gamemode(unsigned char mode)
 	memset(GDC_PLANE_4, 0, 32000);
 	
 	CLEAR_TEXT_VRAM();
-	gfx_fill_palette(bakura_palette, sizeof(bakura_palette) / 3);
+	
 	
 	switch(mode)
 	{
 		case 0:
-		/*	Load_Bitmap_Part("TITLE.ZX0", hold_graph, 15182+13796+10395+6496, 0);
+			//gfx_fill_palette(title_palette, sizeof(title_palette) / 3);
+			/*Load_Bitmap_Part("TITLE.ZX0", hold_graph, 627+6420+5089+7, 0);
 			CAL_Zx0Expand(hold_graph[0], GDC_PLANE_1);
-			CAL_Zx0Expand(hold_graph[0] + 15182, GDC_PLANE_2);
-			CAL_Zx0Expand(hold_graph[0] + (15182+13796), GDC_PLANE_3);
-			CAL_Zx0Expand(hold_graph[0] + (15182+13796+10395), GDC_PLANE_4);*/
+			CAL_Zx0Expand(hold_graph[0] + 8627, GDC_PLANE_2);
+			CAL_Zx0Expand(hold_graph[0] + (8627+6420), GDC_PLANE_3);
+			CAL_Zx0Expand(hold_graph[0] + (8627+6420+5089), GDC_PLANE_4);*/
 		
 			DrawString("COPYRIGHT INFRINGEMENT", 30, 0);
 			DrawString("BY GAMEBLABLA", 34, 1);
@@ -653,6 +640,7 @@ void switch_gamemode(unsigned char mode)
 			Refresh_screen();
 		break;
 		case 2:
+			gfx_fill_palette(bakura_palette, sizeof(bakura_palette) / 3);
 			Load_Bitmap_Part("BPF.ZX0", hold_graph, 9966+9865+9078+6458, 0);
 			CAL_Zx0Expand(hold_graph[0], GDC_PLANE_1);
 			CAL_Zx0Expand(hold_graph[0] + 9966, GDC_PLANE_2);
@@ -693,6 +681,7 @@ void switch_gamemode(unsigned char mode)
 			Refresh_screen();
 		break;
 		case 3:
+			gfx_fill_palette(bakura_palette, sizeof(bakura_palette) / 3);
 			Load_Bitmap_Part("BPF.ZX0", hold_graph, 9966+9865+9078+6458, 0);
 			CAL_Zx0Expand(hold_graph[0], GDC_PLANE_1);
 			CAL_Zx0Expand(hold_graph[0] + 9966, GDC_PLANE_2);
