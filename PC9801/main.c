@@ -353,7 +353,8 @@ static void PMD_Play_Voice(unsigned char vc)
 	else if (voices_enabled == 1)
 	{
 		// 16540 hz, 0x2200
-		pmd_play_pcm_sound_effect(vc, 2540+16000, 2, 255);
+		// For whatever reason, 3 here is for both channels... Even tho it's supposed to go from 1-3. Why?
+		pmd_play_pcm_sound_effect(vc, 2540+16000, 3, 255);
 	}
 }
 
