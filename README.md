@@ -14,21 +14,37 @@ and did full motion video with PCM sound at 13khz and on a gigantic 512MB rom !
 List
 ====
 ![CBS Colecovision](https://github.com/gameblabla/copyright_infringement_ports#cbs-colecovision)
+
 ![MSX2](https://github.com/gameblabla/copyright_infringement_ports#msx2)
+
 ![ZX Spectrum 48k](https://github.com/gameblabla/copyright_infringement_ports#zx-spectrum-48k)
+
 ![V.Smile](https://github.com/gameblabla/copyright_infringement_ports#vsmile-and-compatibles)
+
 ![Exidy Sorcerer](https://github.com/gameblabla/copyright_infringement_ports#exidy-sorcerer)
+
 ![Sinclair QL](https://github.com/gameblabla/copyright_infringement_ports#sinclair-ql)
+
 ![BK Elektronika BK-0010](https://github.com/gameblabla/copyright_infringement_ports#bk-elektronika-bk-0010)
+
 ![PMD-85](https://github.com/gameblabla/copyright_infringement_ports#pmd-85)
+
 ![LVIV/LVOV PK01](https://github.com/gameblabla/copyright_infringement_ports#lvivlvov-pk01)
+
 ![Excalibur 64](https://github.com/gameblabla/copyright_infringement_ports#excalibur-64)
+
 ![Oric 1/Oric Atmos](https://github.com/gameblabla/copyright_infringement_ports#oric-1oric-atmos)
+
 ![TI 83 CE](https://github.com/gameblabla/copyright_infringement_ports#ti-83-ce)
+
 ![Nintendo NES](https://github.com/gameblabla/copyright_infringement_ports#nes)
+
 ![Commodore 64](https://github.com/gameblabla/copyright_infringement_ports#commodore-64)
+
 ![NEC PC-88](https://github.com/gameblabla/copyright_infringement_ports#nec-pc-88)
+
 ![NEC PC-98](https://github.com/gameblabla/copyright_infringement_ports#nec-pc-98)
+
 
 CBS Colecovision
 =================
