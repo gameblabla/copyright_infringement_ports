@@ -13,22 +13,21 @@ and did full motion video with PCM sound at 13khz and on a gigantic 512MB rom !
 
 CBS Colecovision
 =================
-<details>
 ![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/cbs.jpg)
-
+![Download Colecovision version here](https://github.com/gameblabla/copyright_infringement/raw/master/game_buk.rom)
+<details>
 This was the initial port of the game.
 No speech, the image quality is decent and it wasn't too hard once i figured out that i could write to the VDP memory directly.
 I tried to post the game on AtariAge and it did bring up a good discussion about FMVs and taking it further before it was taken down.
 
 This is so far the only port to use sprites for the HUD as the other ones so far don't use it.
-
-![Download Colecovision version here](https://github.com/gameblabla/copyright_infringement/raw/master/game_buk.rom)
 </details>
 MSX2
 ====
-<details>
 ![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/msx.jpg)
+[Download MSX2 version](https://github.com/gameblabla/copyright_infrigement_msx/releases/tag/1.0)
 
+<details>
 This was the next port years later after the Colecovision version.
 I added speech for the intro, used screen 5 for the graphics and i think other than that, it's quite pleasing to look at.
 
@@ -45,15 +44,13 @@ The other reason is that, while i could make sprites work on MSX1, they work dif
 
 However if i work on an MSX1 port, i will have to use sprites again due to the color attribute potentially
 clashing with the nature of the game.
-
-[Download MSX2 version](https://github.com/gameblabla/copyright_infrigement_msx/releases/tag/1.0)
 </details>
 
 ZX Spectrum 48k
 ===============
-<details>
 ![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/spectrum.jpg)
-
+[Download ZX Spectrum 48k version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0)
+<details>
 I wanted to make something for the ZX spectrum (i did make a very simplistic game a long time ago for it called Red Square) so i decided i should experiment with this.
 The ZX Spectrum is quite barebones : a CPU and a screen buffer arranged in a strange way.
 However, unlike other platforms, it's pretty good at this job considering its specs and the 3D games on Spectrum performed better than their MSX counterpart.
@@ -74,15 +71,13 @@ I should point out that this still only saves about half of the space.
 
 I also considered the use of Biforst2 (8x1 multicolor) or even Gigascreen but these would require more bandwidth and a lot more memory as well.
 If i ever make use of these, it will have to be for a Spectrum 128k version.
-
-[Download ZX Spectrum 48k version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0)
 </details>
 
 V.Smile and compatibles
 =======================
-<details>
 ![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/vsmile.jpg)
-
+[Download VSmile version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-vsmile)
+<details>
 As far as i know, this is the first V.smile homebrew game outside of experimental demos.
 
 This is a really strange beast, especially it's CPU and the way controls work (through UART).
@@ -98,15 +93,13 @@ I may want to use them eventually but this game does not need them.
 Game is entirely 8bpp although i do have a 16-bits variant that's also provided for testing and if you guys are curious.
 
 Lack of sound is a shame so i may revisit this eventually.
-
-[Download VSmile version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-vsmile)
 </details>
 
 Exidy Sorcerer
 =================
-<details>
 ![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/exidy.jpg)
-
+[Download Exidy version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-exidy)
+<details>
 This port was challenging due to technical contraints.
 At first, i initially wanted to go the putsprite way as the hardware lacks a proper graphics mode so to speak.
 However, i only ended up using this for static screens as it is way too slow otherwise.
@@ -132,15 +125,13 @@ compressed down to 280 bytes or so. The decompressor is also 240 bytes or so and
 
 I might actually make a proper game for this someday but not a lot of people are interested in business machines like this one.
 Perhaps i'll do a flappy bird like i did on the Laser 200.
-
-[Download Exidy version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-exidy)
 </details>
 
 Sinclair QL
 =================
-<details>
 ![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/QL.jpg)
-
+[Download Sinclair QL version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-SinclairQL)
+<details>
 This port took longer than it should have been, mostly due to lack of support, tools and documentation.
 I honestly wanted to give up but decided it would be a shame to give up since this system barely has any games !
 
@@ -165,15 +156,13 @@ There was also initially a bug with the game overwriting some of the systems fun
 resulting in the game outputting no text ! I had to move up the memory location slightly higher to avoid this issue.
 There are ways around this but they all involve disabling the OS or moving it to another location,
 both of which have their own disadvantages and complications. Therefore, i decided to do that instead.
-
-[Download Sinclair QL version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-SinclairQL)
 </details>
 
 BK Elektronika (BK-0010)
 =========================
-<details>
 ![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/bk.jpg)
-
+[Download BK-0010 version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-BK)
+<details>
 This russian computer was notable back then as it was the cheapest computer most could afford. (still worth 3 months of work !)
 I had to port this gay game to computer...
 
@@ -187,15 +176,13 @@ This port was extremely challenging for multiple reasons :
 The results are mixed but i still managed to fit the animations as well as beeps and all.
 I may consider having an expanded version for later BK revisions but i would rather port this to more capable Soviet
 computers like the Vector-06C or the Corvette.
-
-[Download BK-0010 version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-BK)
 </details>
 
 PMD-85
 =========================
-<details>
 ![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/pmd.jpg)
-
+[Download PMD-85 version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-PMD)
+<details>
 This was a Czechoslovak computer that was, according to a Czechoslovak that covered soviet computers back then, well loved.
 The initial versions were completely black & white but very late into its lifespan, color output was added.
 Then the color ouput was later refined into ColorAce, which this game takes advantage of.
@@ -204,29 +191,25 @@ The nice thing about ColorAce is that it is also backwards compatible with non-C
 This port was very simple to do. Unfortunately RAM is an issue and the 48k amount is misleading due to how the memory map is laid out.
 In reality, this is more like a 32k machine and you have to load the games from casette so it's still pretty limiting.
 It's only slightly better than the BK-0010 version because of the extra memory but that's it.
-
-[Download PMD-85 version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-PMD)
 </details>
 
 Lviv/Lvov PK01
 ===================
-<details>
 ![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/lviv.jpg)
-
+[Download LVIV version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-LVIV)
+<details>
 Another soviet computer that has a very strange memory layout.
 If you disable Video RAM, you have full access to the 48kb of RAM.
 Otherwise, you only get 16kb to play with... What a waste.
 
 At least there's a wide range of 4 color palettes to choose from !
-
-[Download LVIV version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-LVIV)
 </details>
 
 Excalibur 64
 ============
-<details>
 ![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/Excalibur_64.jpg)
-
+[Download Excalibur 64 version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-E64)
+<details>
 This is probably the worst port along with the Exidy Sorcerer version though this one
 does at least have 16 colors (not all are used to the garish color palette).
 
@@ -237,15 +220,13 @@ This game as it is only uses 160x72 for the story text and 80x25 ingame, resulti
 Additionally, no sound due to lack of documentation on how to even output sound...
 
 Cool name for a computer though, maybe i'll revisit it for my next game.
-
-[Download Excalibur 64 version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-E64)
 </details>
 
 Oric 1/Oric Atmos
 ==================
-<details>
 ![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/atmos.jpg)
-
+[Download Oric version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-ORIC)
+<details>
 I haven't really dealt with any 6502-based machine for quite some time...
 The Oric is quite interesting and shares a lot in similar with the ZX Spectrum.
 
@@ -259,15 +240,13 @@ I will have to think of something for the C128 and C64 ports...
 
 The Oric, thankfully, has a decent amount of memory and not a retarded memory mapping either
 so it was easy to get something to work. Not a bad version i would say.
-
-[Download Oric version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-ORIC)
 </details>
 
 TI-83 CE
 ==================
-<details>
 ![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/ti83ce.jpg)
-
+[Download TI83CE version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-TI83CE)
+<details>
 I found one by sheer luck for really cheap (15€) instead of the usual expensive prices so thought that would be an opportunity.
 The C toolchain for it is really nice and uses Clang as the new backend (previously it was using a proprietary solution but that's now largely fixed).
 ZX0/ZX7 are also directly integrated so that saved me some time.
@@ -278,15 +257,13 @@ It works fine though, since this is decently powerful.
 
 I implemented highscore saving (this is based upon the Oric version) but it seems not to work reliably so unsure...
 It's still there in any case.
-
-[Download TI83CE version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-TI83CE)
 </details>
 
 NES
 ==================
-<details>
 ![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/nes.png)
-
+[Download NES version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-NES)
+<details>
 The NES is something i always avoided due to the sheer complexity of it.
 On the surface, it seems simple enough but doing anything complex becomes a huge chore.
 If you want to make your first NES game, definitively start first with NROM.
@@ -298,14 +275,13 @@ The NES also has hardware DPCM support but the way it's laid out means that if y
 This port does make extensive use of voices, even further than the MSX2 version as they are used ingame also.
 Overall, it wasn't too difficult but this console isn't as easy as it may seem at first !
 
-[Download NES version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-NES)
 </details>
 
 Commodore 64
 ==================
-<details>
 ![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/c64.jpg)
-
+[Download C64 version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-C64)
+<details>
 The Commodore 64 is, much like the NES, illsuited for this kind of game although not as bad as the NES was in this regard.
 The biggest issue is that it's simply too slow to update 8k + 2k of color fast enough on the puny 6502 that's in the C64.
 In the end i resorted to B&W graphics in the bitmapped multicolor mode and that sort of works OK enough to get around 6 frames per second.
@@ -313,15 +289,13 @@ The only instance of the game having colors is in the Rikuto screens...
 
 There's also some PCM samples in there although it's heavily downsampled, 4-bits and you can barely make out what he says.
 I still wanted to include it however.
-
-[Download C64 version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-C64)
 </details>
 
 NEC PC-88
 ==================
-<details>
 ![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/pc88.jpg)
-
+[Download PC-88 version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-PC88)
+<details>
 The NEC PC-88 (and the PC-98) is the home to numerous hentai games. 
 Thus, this game should have perfectly suitable for this hardware.
 Except not really, because outside of japanese documents (and even then, there's not a huge lot of it!),
@@ -339,6 +313,4 @@ I'm sure with delta compression, compressed code etc... i could get it further t
 but even if i could figure that out, z88dk's support for non-CP/M platforms is also lackluster as well !
 
 I think i did a decent-ish job but it could have been better even considering the hardware.
-
-[Download PC-88 version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-PC88)
 </details>
