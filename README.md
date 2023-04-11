@@ -13,7 +13,7 @@ and did full motion video with PCM sound at 13khz and on a gigantic 512MB rom !
 
 CBS Colecovision
 =================
-<summary>
+<details>
 ![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/cbs.jpg)
 
 This was the initial port of the game.
@@ -23,10 +23,10 @@ I tried to post the game on AtariAge and it did bring up a good discussion about
 This is so far the only port to use sprites for the HUD as the other ones so far don't use it.
 
 ![Download Colecovision version here](https://github.com/gameblabla/copyright_infringement/raw/master/game_buk.rom)
-</summary>
+</details>
 MSX2
 ====
-<summary>
+<details>
 ![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/msx.jpg)
 
 This was the next port years later after the Colecovision version.
@@ -47,11 +47,11 @@ However if i work on an MSX1 port, i will have to use sprites again due to the c
 clashing with the nature of the game.
 
 [Download MSX2 version](https://github.com/gameblabla/copyright_infrigement_msx/releases/tag/1.0)
-</summary>
+</details>
 
 ZX Spectrum 48k
 ===============
-<summary>
+<details>
 ![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/spectrum.jpg)
 
 I wanted to make something for the ZX spectrum (i did make a very simplistic game a long time ago for it called Red Square) so i decided i should experiment with this.
@@ -76,11 +76,11 @@ I also considered the use of Biforst2 (8x1 multicolor) or even Gigascreen but th
 If i ever make use of these, it will have to be for a Spectrum 128k version.
 
 [Download ZX Spectrum 48k version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0)
-</summary>
+</details>
 
 V.Smile and compatibles
 =======================
-<summary>
+<details>
 ![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/vsmile.jpg)
 
 As far as i know, this is the first V.smile homebrew game outside of experimental demos.
@@ -100,11 +100,11 @@ Game is entirely 8bpp although i do have a 16-bits variant that's also provided 
 Lack of sound is a shame so i may revisit this eventually.
 
 [Download VSmile version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-vsmile)
-</summary>
+</details>
 
 Exidy Sorcerer
 =================
-<summary>
+<details>
 ![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/exidy.jpg)
 
 This port was challenging due to technical contraints.
@@ -134,11 +134,11 @@ I might actually make a proper game for this someday but not a lot of people are
 Perhaps i'll do a flappy bird like i did on the Laser 200.
 
 [Download Exidy version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-exidy)
-</summary>
+</details>
 
 Sinclair QL
 =================
-<summary>
+<details>
 ![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/QL.jpg)
 
 This port took longer than it should have been, mostly due to lack of support, tools and documentation.
@@ -167,11 +167,11 @@ There are ways around this but they all involve disabling the OS or moving it to
 both of which have their own disadvantages and complications. Therefore, i decided to do that instead.
 
 [Download Sinclair QL version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-SinclairQL)
-</summary>
+</details>
 
 BK Elektronika (BK-0010)
 =========================
-<summary>
+<details>
 ![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/bk.jpg)
 
 This russian computer was notable back then as it was the cheapest computer most could afford. (still worth 3 months of work !)
@@ -189,11 +189,11 @@ I may consider having an expanded version for later BK revisions but i would rat
 computers like the Vector-06C or the Corvette.
 
 [Download BK-0010 version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-BK)
-</summary>
+</details>
 
 PMD-85
 =========================
-<summary>
+<details>
 ![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/pmd.jpg)
 
 This was a Czechoslovak computer that was, according to a Czechoslovak that covered soviet computers back then, well loved.
@@ -206,11 +206,11 @@ In reality, this is more like a 32k machine and you have to load the games from 
 It's only slightly better than the BK-0010 version because of the extra memory but that's it.
 
 [Download PMD-85 version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-PMD)
-</summary>
+</details>
 
 Lviv/Lvov PK01
 ===================
-<summary>
+<details>
 ![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/lviv.jpg)
 
 Another soviet computer that has a very strange memory layout.
@@ -220,11 +220,11 @@ Otherwise, you only get 16kb to play with... What a waste.
 At least there's a wide range of 4 color palettes to choose from !
 
 [Download LVIV version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-LVIV)
-</summary>
+</details>
 
 Excalibur 64
 ============
-<summary>
+<details>
 ![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/Excalibur_64.jpg)
 
 This is probably the worst port along with the Exidy Sorcerer version though this one
@@ -239,11 +239,11 @@ Additionally, no sound due to lack of documentation on how to even output sound.
 Cool name for a computer though, maybe i'll revisit it for my next game.
 
 [Download Excalibur 64 version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-E64)
-</summary>
+</details>
 
 Oric 1/Oric Atmos
 ==================
-<summary>
+<details>
 ![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/atmos.jpg)
 
 I haven't really dealt with any 6502-based machine for quite some time...
@@ -261,11 +261,11 @@ The Oric, thankfully, has a decent amount of memory and not a retarded memory ma
 so it was easy to get something to work. Not a bad version i would say.
 
 [Download Oric version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-ORIC)
-</summary>
+</details>
 
 TI-83 CE
 ==================
-<summary>
+<details>
 ![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/ti83ce.jpg)
 
 I found one by sheer luck for really cheap (15€) instead of the usual expensive prices so thought that would be an opportunity.
@@ -280,11 +280,11 @@ I implemented highscore saving (this is based upon the Oric version) but it seem
 It's still there in any case.
 
 [Download TI83CE version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-TI83CE)
-</summary>
+</details>
 
 NES
 ==================
-<summary>
+<details>
 ![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/nes.png)
 
 The NES is something i always avoided due to the sheer complexity of it.
@@ -299,11 +299,11 @@ This port does make extensive use of voices, even further than the MSX2 version 
 Overall, it wasn't too difficult but this console isn't as easy as it may seem at first !
 
 [Download NES version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-NES)
-</summary>
+</details>
 
 Commodore 64
 ==================
-<summary>
+<details>
 ![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/c64.jpg)
 
 The Commodore 64 is, much like the NES, illsuited for this kind of game although not as bad as the NES was in this regard.
@@ -315,11 +315,11 @@ There's also some PCM samples in there although it's heavily downsampled, 4-bits
 I still wanted to include it however.
 
 [Download C64 version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-C64)
-</summary>
+</details>
 
 NEC PC-88
 ==================
-<summary>
+<details>
 ![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/pc88.jpg)
 
 The NEC PC-88 (and the PC-98) is the home to numerous hentai games. 
@@ -341,4 +341,4 @@ but even if i could figure that out, z88dk's support for non-CP/M platforms is a
 I think i did a decent-ish job but it could have been better even considering the hardware.
 
 [Download PC-88 version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-PC88)
-</summary>
+</details>
