@@ -1,0 +1,12 @@
+*.ap
+*.AP
+main-.c
+*.RAW
+*.su
+TEMP.EXE
+*.o
+TEMP
+PC9821/bmptosif/*.o
+PC9821/bmptosif/*.elf
+*.img
+editd169e/
