@@ -576,6 +576,7 @@ void switch_gamemode(unsigned char mode)
 	action_status = 0;
 	toggle_sound_status = 0;
 	frame_offset = 0;
+	keystate[KEY_SPACE] = 0;
 	
 	mainvideo.ClearVideo();
 	mainmusic.Stop_Music();
@@ -644,11 +645,12 @@ void switch_gamemode(unsigned char mode)
 
 		break;
 		case 2:
-		
-			mainvideo.LoadBMP("RIKUN.SIF", &bmp[0], 320, 200, 0);
-			mainvideo.DrawBMP_static(&bmp[0], 0, 0, 0);
 			mainvideo.LoadPalette(pal_files[gpu_mode][1]);
 			mainvideo.SetPalette();
+			
+			mainvideo.LoadBMP(frames_files[gpu_mode][1], &bmp[0], 320, 200, 1);
+			mainvideo.DrawBMP_compressed(&bmp[0], 0, 0);
+
 			
 			mainvideo.Print_text("Your SCORE was ", 0, 0, color_text);
 			mainvideo.Print_text(bcd, 17*8, 0, color_text);
