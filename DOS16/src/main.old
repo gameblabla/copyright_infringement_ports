@@ -1,0 +1,55 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include "generic.h"
+#include "generic_io.h"
+#include "graph.h"
+#include "dosmid.h"
+#include "vga.h"
+#include "keyb.h"
+
+PLANAR_BITMAP bmp;
+
+void interrupt (*oldhandler)();
+
+#define TIMERVECT			0x1C
+
+int main(int argc, char** argv)
+{
+	unsigned char act;
+	unsigned char error;
+	int y = 0, done = 1;
+	
+	/*error = LoadMusic("GOD.MID", argc, argv);
+	if (error == 1)
+	{
+		Exit_DOSMID();
+		exit(-1);
+	}*/
+	
+
+	
+	_VGA_Set_Unchained_Mode(640, 400);
+	_VGA_Load_palette("PICT.PAL");
+	Load_RAW("PICT.BIN", &bmp);
+
+
+	_VGA_Set_palette();
+
+	Keyboard_buffer();
+
+
+	oldhandler = _dos_getvect(TIMERVECT);	
+	_dos_setvect(TIMERVECT, PlayMusic);
+	
+	while(done)
+	{
+		Keyboard_scancode();
+		_VGA_Draw_Bitmap_Static(&bmp);
+	}
+	
+	_VGA_Free_bmp(bmp);
+	Exit_DOSMID();
+	Kill_VGA();
+	
+	return 0;
+}

@@ -1,0 +1,4 @@
+./src/dosmid/dosmid.c(439): Warning! E1181: Parameter 3, sign specifier mismatch
+./src/dosmid/dosmid.c(439): Note! I2003: source conversion type is 'unsigned int *'
+./src/dosmid/dosmid.c(439): Note! I2004: target conversion type is 'int *'
+./src/dosmid/dosmid.c(783): Warning! W107: Missing return value for function 'LoadMusic'

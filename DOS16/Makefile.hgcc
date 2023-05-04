@@ -1,0 +1,22 @@
+CC = wcl
+MODE = h
+
+# -DTHIRTYTWOBITS
+CFLAGS = -0 -bt=dos  -m${MODE} -I./src/dosmid -I./src/generic -I./src/graphics -I./src -I./src/graphics/vga -I./src/input
+CFLAGS += -DOPL -DSBAWE -zi
+
+LDFLAGS = -bcl=dos 
+OUTPUT = hgcc.exe
+
+SOURCES =  HGCC.C
+
+OBJS = HGCC.C
+
+all: ${OUTPUT}
+
+${OUTPUT}: ${SOURCES}
+	${CC} ${CFLAGS} ${LDFLAGS} -fe=${OUTPUT} ${OBJS}
+	
+clean:
+	rm *.o src/*.o
+	rm ${OUTPUT}
