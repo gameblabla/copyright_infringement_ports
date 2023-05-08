@@ -241,7 +241,7 @@ unsigned char Choice_Menu(unsigned char d)
 			puts("4 = No sound effects");
 			max_c = 4;
 			break;
-			#if !defined(__386__)
+			#if defined(__386__)
 			case 3:
 			puts("\nUse Low memory mode (less frames) ?:");
 			puts("0 = No");
