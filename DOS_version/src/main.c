@@ -633,10 +633,11 @@ int main(int argc,char **argv)
 				
 
 				mainvideo.FlipVideo();
-				
+/*
 #if defined(__386__)
 				if (heavy_cpu == 0)
 #endif
+*/
 				{
 					mainvideo.Vsyncwait();
 					mainvideo.Vsyncwait();
