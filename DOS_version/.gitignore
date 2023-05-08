@@ -7,5 +7,9 @@ FRAMES
 *.err
 *.o
 *.exe
+*.ZIP
+*.zip
 *.EXE
 *.elf
+*.conf
+d

@@ -493,6 +493,45 @@ MachineType GetMachineType(void) {
 
 void InitPIC(uint16_t command, uint16_t data, uint8_t ICW1, uint8_t ICW2, uint8_t ICW3, uint8_t ICW4)
 {
+#if !defined(__386__)
+	_asm {
+		cli
+
+		mov dx, [data]
+		in al, dx	// Save old mask
+		mov bl, al
+		
+		mov dx, [command]
+		mov al, [ICW1]
+		out dx, al
+		out 0xEE, al	// delay
+		mov dx, [data]
+		mov al, [ICW2]
+		out	dx, al
+		out PC_DELAY_PORT, al	// delay
+
+		// Do we need to set ICW3?
+		test [ICW1], 0x02
+		jnz skipICW3
+
+		mov al, [ICW3]
+		out dx, al
+		out 0xEE, al	// delay
+skipICW3:
+		// Do we need to set ICW4?
+		test [ICW1], 0x01
+		jz skipICW4
+
+		mov al, [ICW4]
+		out dx, al
+		out 0xEE, al	// delay
+skipICW4:
+		mov al, bl		// Restore old mask
+		out dx, al
+
+		sti
+	}
+#else
     unsigned char old_mask;
     
     _disable();
@@ -511,7 +550,6 @@ void InitPIC(uint16_t command, uint16_t data, uint8_t ICW1, uint8_t ICW2, uint8_
         outp(0xEE, ICW3); // delay
     }
 
-
     // Do we need to set ICW4?
     if (ICW1 & 0x01) {
         outp(data, ICW4);
@@ -521,6 +559,7 @@ void InitPIC(uint16_t command, uint16_t data, uint8_t ICW1, uint8_t ICW2, uint8_
     outp(data, old_mask); // Restore old mask
     
     _enable();
+#endif
 }
 
 void SetAutoEOI(MachineType machineType)

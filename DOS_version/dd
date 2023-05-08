@@ -1,1 +1,0 @@
-nasm -f obj decomp/aplib.asm -o aplib.o

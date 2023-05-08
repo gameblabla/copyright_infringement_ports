@@ -192,91 +192,102 @@ const char* long_ingametext[] =
 	if (dec == 0) mainvideo.DrawBMP_static(&bmp[0], 0, 0, 0); \
 	if (dec == 1) mainvideo.DrawBMP_compressed(&bmp[0], 0, 0); \
 
+const char tryagain[] = "Invalid choice. Please try again.";
+const char enterchoice[] = "Enter your choice :";
+
+unsigned char Choice_Menu(unsigned char d)
+{
+	char valid_choice, choice;
+	unsigned char max_c, c;
+	do {
+		switch(d)
+		{
+			case 0:
+			
+			puts("\nSelect Video Mode:");
+			puts("0 = Tandy/PCJr 320x200");
+			puts("1 = Tandy/PCJr 160x200");
+			puts("2 = MCGA/VGA 320x200 256 Colors");
+			puts("3 = Hercules");
+			puts("4 = CGA 4-colors");
+			puts("5 = EGA 320x200");
+			puts("6 = CGA Composite");
+			puts("7 = CGA B&W");
+			puts("8 = CGA B&W Inverted");
+			#if defined(__386__)
+			puts("9 = Hercules InColor");
+			puts("10 = VGA 800x600 16 colors");
+			puts("11 = VGA 800x600 16 colors Special/SVGA");
+			puts("12 = VGA 360x480 ModeX");
+			puts("13 = VGA 320x240 ModeX");
+			puts("14 = VGA 640x400 256 colors");
+			max_c = 14;
+			#else
+			max_c = 8;
+			#endif
+			break;
+			case 1:
+			puts("\nSelect Music Driver:");
+			puts("0 = No music");
+			puts("1 = OPL2 Adlib/SB");
+			max_c = 1;
+			break;
+			case 2:
+			puts("\nSelect Sound Driver:");
+			puts("0 = Sound Blaster");
+			puts("1 = Adlib OPL2");
+			puts("2 = PC Speaker");
+			puts("3 = Tandy PSG");
+			puts("4 = No sound effects");
+			max_c = 4;
+			break;
+			#if !defined(__386__)
+			case 3:
+			puts("\nUse Low memory mode (less frames) ?:");
+			puts("0 = No");
+			puts("1 = Yes");
+			max_c = 1;
+			break;
+			#endif
+		}
+		
+        if (scanf("%d", &choice) != 1)
+        {
+            while ((c = getchar()) != '\n' && c != EOF);
+            valid_choice = 0;
+            puts(tryagain);
+        } else {
+            valid_choice = choice >= 0 && choice <= max_c;
+            if (!valid_choice) puts(tryagain);
+        }
+		
+	} while (!valid_choice);
+	
+	return choice;
+}
 
 int main(int argc,char **argv) 
 {
 	unsigned char done;
 	unsigned char buttons;
-	char valid_choice, choice;
+	char choice;
 	char tmp[6];
 	
-	snddef = 0;
-	gpu_mode = 1;
+	// Sane defaults
+	snddef = 4;
+	gpu_mode = 4;
 	musdef = 0;
 	frames_porn = 4;
 	ingametext = long_ingametext;
 	
 	puts("\nCOPYRIGHT INFRINGEMENT SETUP");
 
-    do {
-        puts("\nSelect Video Mode:");
-        puts("0 = Tandy/PCJr 320x200");
-		puts("1 = Tandy/PCJr 160x200");
-        puts("2 = MCGA/VGA 320x200 256 Colors");
-        puts("3 = Hercules");
-        puts("4 = CGA 4-colors");
-        puts("5 = EGA 320x200");
-        puts("6 = CGA Composite");
-        puts("7 = CGA B&W");
-        puts("8 = CGA B&W Inverted");
+    gpu_mode = Choice_Menu(0);
+    musdef = Choice_Menu(1);
+	snddef = Choice_Menu(2);
+	
 #if defined(__386__)
-        puts("9 = Hercules InColor");
-        puts("10 = VGA 800x600 16 colors");
-        puts("11 = VGA 800x600 16 colors Special/SVGA");
-        puts("12 = VGA 360x480 ModeX");
-        puts("13 = VGA 320x240 ModeX");
-        puts("14 = VGA 640x400 256 colors");
-#endif
-        puts("Enter your choice: ");
-        scanf("%d", &choice);
-#if defined(__386__)
-        valid_choice = (char)choice >= 0 && (char)choice <= 14;
-#else
-        valid_choice = (char)choice >= 0 && (char)choice <= 7;
-#endif
-        if (!valid_choice) puts("Invalid choice. Please try again.");
-        gpu_mode = choice;
-        
-    } while (!valid_choice);
-
-    do {
-        puts("\nSelect Music Driver:");
-        puts("0 = No music");
-        puts("1 = OPL2 Adlib/SB");
-        puts("Enter your choice: ");
-        scanf("%d", &choice);
-        valid_choice = (char)choice >= 0 && (char)choice <= 1;
-        if (!valid_choice) puts("Invalid choice. Please try again.");
-        musdef = choice;
-        
-    } while (!valid_choice);
-
-    do {
-        puts("\nSelect Sound Driver:");
-        puts("0 = Sound Blaster");
-        puts("1 = Adlib OPL2");
-        puts("2 = PC Speaker");
-        puts("3 = Tandy PSG");
-        puts("4 = No sound effects");
-        puts("Enter your choice: ");
-        scanf("%d", &choice);
-        valid_choice = (char)choice >= 0 && (char)choice <= 4;
-        if (!valid_choice) puts("Invalid choice. Please try again.");
-        snddef = choice;
-    } while (!valid_choice);
-
-
-#if defined(__386__)
-    do {
-        puts("\nUse Low memory mode (less frames) ?:");
-        puts("0 = No");
-        puts("1 = Yes");
-        puts("Enter your choice: ");
-        scanf("%d", &choice);
-        valid_choice = (char)choice >= 0 && (char)choice <= 1;
-        if (!valid_choice) puts("Invalid choice. Please try again.");
-    } while (!valid_choice);
-    
+	choice = Choice_Menu(3);
 	frames_porn = 9;
 	if (choice)
 	{
@@ -700,9 +711,6 @@ int main(int argc,char **argv)
 		
 	}
 	
-	Keyboard_Clean();
-	Close_Machine();
-
 	mainmusic.Stop_Music();
 	mainsound.Sound_Close();
 	mainmusic.Close_Music();
@@ -715,6 +723,10 @@ int main(int argc,char **argv)
 		mainvideo.FreeBMP(&bmp[i]);
 	}
 	mainvideo.FreeVideo();
+	
+	Keyboard_Clean();
+	
+	Close_Machine();
 
 	return 0;
 }

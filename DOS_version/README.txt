@@ -81,6 +81,11 @@ Sound : Any sound option available
 Changelog
 =================
 
+1.21
+- Fix keyboard issue with real mode version
+- Fix issue with menu selection going crazy if you input a letter instead of a number
+- Slightly reduced memory consumption
+
 1.2
 - Added 160x200 PCJr/Tandy graphics mode (in addition to the already existing 320x200)
 - Reduced executable filesize and reduced memory consumption.
