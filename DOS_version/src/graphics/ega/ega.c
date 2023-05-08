@@ -327,25 +327,19 @@ void EGA_Vsync()
 
 static void EGA_Draw_Text(const char* str, unsigned short x, unsigned short y, unsigned short color_index)
 {
-    uint16_t screen_width_in_chars = 40;
-
     x = x >> 3;
     y = y >> 3;
-	
 	VideoInt( _BIOS_SET_CURPOS, 0, 0, (x&0xFF)|((y&0xFF)<<8) );
 	puts(str);
 }
 
 static void EGA_Draw_Text_Center(const char* str, unsigned short y, unsigned short color_index)
 {
-    uint16_t x;
-    uint16_t screen_width_in_chars = screen_width >> 3;
-
-    x = (screen_width_in_chars - strlen(str)) >> 1;
-    y = y >> 3;
-	
-	VideoInt( _BIOS_SET_CURPOS, 0, 0, (x&0xFF)|((y&0xFF)<<8) );
-	puts(str);
+	uint16_t x;
+	uint16_t text_width;
+	text_width = strlen(str) << 3;
+	x = ((screen_width - text_width) >> 1);
+	EGA_Draw_Text(str, x, y, color_index);
 }
 
 void Kill_EGA()

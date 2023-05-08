@@ -110,11 +110,22 @@ static unsigned char Init_TANDY(unsigned short width, unsigned short height, uns
 		case 320:
 			set_mode(0x09);
 			PLANE_SIZE = 16384*2;
+			// There are no ways to upgrade a PCJr with a 386
+			// Only Tandys were only released with a 386+
+			#if !defined(__386__)
+				// Set it to PCJr compatible if PCJr is detected
+				if (peekb(PCJR_MODEL_ID_SEG, PCJR_MODEL_ID_ADDR) == 0xFD)
+				{
+					SET_BASE_VIDEO_ADDRESS_PCJR(0x18000000L);
+					TANDY = (uint8_t far*)0x18000000L;
+				}
+			#endif
 		break;
 		// TANDY low-res 160x200 mode
 		case 160:
 			set_mode(0x08);
 			PLANE_SIZE = 16384;
+			// It isn't needed to remap the video RAM location for the low resolution mode
 		break;
 		// Need to support Tandy Hires 16 colors 640x200 mode
 		/*case 640:
@@ -122,17 +133,7 @@ static unsigned char Init_TANDY(unsigned short width, unsigned short height, uns
 			PLANE_SIZE = 16384*2;
 		break;*/
 	}
-	
-	// There are no ways to upgrade a PCJr with a 386
-	// Only Tandys were only released with a 386+
-#if !defined(__386__)
-	// Set it to PCJr compatible if PCJr is detected
-	if (peekb(PCJR_MODEL_ID_SEG, PCJR_MODEL_ID_ADDR) == 0xFD)
-	{
-		SET_BASE_VIDEO_ADDRESS_PCJR(0x18000000L);
-		TANDY = (uint8_t far*)0x18000000L;
-	}
-#endif
+
 
 	memset(TANDY, 0, PLANE_SIZE);
 	
@@ -171,7 +172,12 @@ static void TANDY_DrawBMP_compressed(BITMAP *bmp, short x, short y)
 {
 	unsigned off;
 	off = pixelOffset(x, y);
-	CAL_LZSAExpand(bmp->data[0], TANDY + off);
+#if defined(__386__)
+	apl_decompress
+#else
+	CAL_LZSAExpand
+#endif
+	(bmp->data[0], TANDY + off);
 }
 
 static void TANDY_Free_bmp(BITMAP *bmp)
@@ -217,11 +223,8 @@ static void TANDY_Draw_Text_Center(const char* str, unsigned short y, unsigned s
 	uint16_t x;
 	uint16_t text_width;
 	text_width = strlen(str) << 3;
-	x = ((screen_width - text_width) >> 1) >> 3;
-	y = y >> 3;
-	
-	VideoInt( _BIOS_SET_CURPOS, 0, 0, (x&0xFF)|((y&0xFF)<<8) );
-	puts(str);
+	x = ((screen_width - text_width) >> 1);
+	TANDY_Draw_Text(str, x, y, color_index);
 }
 
 #define INPUT_STATUS 0x03DA
@@ -245,7 +248,6 @@ static void TANDY_Vsync()
 static void Kill_TANDY()
 {
 	TANDY_Clear();
-	outp(0x3D8, 0x1E); // Disable colorburst
 	set_mode(TEXT_MODE);
 }
 

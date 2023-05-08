@@ -73,7 +73,6 @@ static void interrupt PCK_IRQ ()
 	sample_prg += (bit_index == 0);
 	
 
-	
 #if defined(__386__)
 	//Acknowledge hardware interrupt
 	outp (0x20, 0x20);

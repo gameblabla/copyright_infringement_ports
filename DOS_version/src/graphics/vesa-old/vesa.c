@@ -141,7 +141,7 @@ void Load_RAW(const char* filename, PLANAR_BITMAP *b)
 	_dos_open (filename, O_RDONLY, &fd);
 	if (!fd)
 	{
-		printf("Can't load\n");
+		//printf("Can't load\n");
 		exit(1);
 	}
 	
@@ -187,7 +187,7 @@ void _VGA_Load_bmp(const char *file, PLANAR_BITMAP *b)
   /* open the file */
   if ((fp = fopen(file,"rb")) == NULL)
   {
-    printf("Error opening file %s.\n", file);
+    //printf("Error opening file %s.\n", file);
     exit(1);
   }
 
@@ -195,7 +195,7 @@ void _VGA_Load_bmp(const char *file, PLANAR_BITMAP *b)
   if (fgetc(fp)!='B' || fgetc(fp)!='M')
   {
     fclose(fp);
-    printf("%s is not a bitmap file.\n",file);
+    //printf("%s is not a bitmap file.\n",file);
     exit(1);
   }
 
@@ -220,7 +220,7 @@ void _VGA_Load_bmp(const char *file, PLANAR_BITMAP *b)
     if ((b->data[plane] = (byte *) malloc((word)(size>>2))) == NULL)
     {
       fclose(fp);
-      printf("Error allocating memory for file %s.\n", file);
+      //printf("Error allocating memory for file %s.\n", file);
       exit(1);
     }
   }

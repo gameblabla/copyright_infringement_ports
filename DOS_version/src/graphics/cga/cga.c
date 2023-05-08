@@ -198,25 +198,8 @@ void CGA_LoadPalette(const char *f)
 {
 }
 
-/* some video BIOS stuff */
-#define _BIOS_SET_MODE			0x0000
-#define _BIOS_SET_CURPOS		0x0200
-#define _BIOS_GET_MODE			0x0F00
-#define _BIOS_SET_PALETTE		0x1000
-
-/* this is what'll be used to call BIOS interrupt 10 to set the video mode */
-extern short VideoInt(short, short, short, short);
-
-#pragma aux     VideoInt = \
-                "push   bp      ", \
-                "int    10h     ", \
-                "pop    bp      ", \
-                parm caller [ax] [bx] [cx] [dx] value [ax];
-
 void CGA_Draw_Text(const char* str, unsigned short x, unsigned short y, unsigned short color_index)
 {
-    uint16_t screen_width_in_chars = 40;
-
     x = x >> 3;
     y = y >> 3;
 	
@@ -226,13 +209,11 @@ void CGA_Draw_Text(const char* str, unsigned short x, unsigned short y, unsigned
 
 static void CGA_Draw_Text_Center(const char* str, unsigned short y, unsigned short color_index)
 {
-    uint16_t x;
-
-    x = (screen_width_in_chars - strlen(str)) >> 1;
-    y = y >> 3;
-	
-	VideoInt( _BIOS_SET_CURPOS, 0, 0, (x&0xFF)|((y&0xFF)<<8) );
-	puts(str);
+	uint16_t x;
+	uint16_t text_width;
+	text_width = strlen(str) << 3;
+	x = ((screen_width - text_width) >> 1);
+	CGA_Draw_Text(str, x, y, color_index);
 }
 
 #define INPUT_STATUS 0x03DA

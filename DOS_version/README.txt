@@ -20,6 +20,7 @@ Video modes
 - EGA 320x200 16 colors
 - Hercules
 - MCGA/VGA 320x200 256 Colors (Mode 13h)
+- Tandy/PCJr 160x200 and 320x200 16 colors mode
 
 These video modes are also available for the 386+ version
 - Hercules In-Color
@@ -34,7 +35,7 @@ For music, only Adlib OPL2 is available.
 The OPL2LPT should work but this was untested and the autodetection may fail.
 
 Sound effects/PCM Voices
-- SoundBlaster (DMA, Recommended)
+- SoundBlaster (DMA, Recommended. SB 1.0 may work but it's recommended you have a SB 2.0+)
 - Adlib OPL2 (Has much higher CPU requirements)
 - PC Speaker (Lower CPU requirements than adlib but poor quality)
 - Tandy PSG (Does not support the parallel version out of the box. Use this for PCJr or Tandy)
@@ -53,6 +54,7 @@ Sound : None or Sound Blaster
 
 Using CGA will be the fastest (any of the CGA options should do).
 The second fastest option would be Hercules (Monochrome) but it's twice as slow as CGA.
+A 4.77mhz IBM AT could run the game but you have to disable sound or use a soundblaster (without music) for it to be playable.
 
 386 Enhanced version
 CPU : 386SX 16 Mhz
@@ -73,3 +75,16 @@ Sound : Sound Blaster
 CPU : 386DX 40Mhz, 486DX 66Mhz for the higher resolution modes (800x600, 640x400 etc...)
 Graphics card : CGA/VGA/Hercules
 Sound : Any sound option available
+
+
+=================
+Changelog
+=================
+
+1.2
+- Added 160x200 PCJr/Tandy graphics mode (in addition to the already existing 320x200)
+- Reduced executable filesize and reduced memory consumption.
+- Added joystick/gameport support.
+
+1.1
+Initial public release

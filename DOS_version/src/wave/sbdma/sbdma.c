@@ -252,8 +252,8 @@ static void WriteDSP(unsigned char Value)
 ****************************************************************************/
 static void StartPlayBack ()
 {
-	unsigned int  Page, OffSet;
-	long LinearAddress;
+	uint32_t Page, OffSet;
+	uint32_t LinearAddress;
   
 	WriteDSP (0xD1);                 //DSP-command D1h - Enable speaker, required
                                    //on older SB's

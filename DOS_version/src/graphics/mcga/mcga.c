@@ -58,15 +58,12 @@ static void drawChar(char ch, unsigned short x, unsigned char y, unsigned char c
 
 static unsigned char Init_MCGA(unsigned short width, unsigned short height, unsigned short flags, int argc, char** argv)
 {
-	unsigned short i;
-	
 	screen_width = 320;
 	screen_height = 200;
-	
 	/* set mode 13 */
 	set_mode(0x13);
 	
-	// Calculate the size of each plane
+	// Calcuate the size of each plane
 	PLANE_SIZE = 64000;
 
 	return 0;
