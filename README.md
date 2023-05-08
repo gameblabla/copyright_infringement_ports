@@ -45,6 +45,9 @@ List
 
 ![NEC PC-98](https://github.com/gameblabla/copyright_infringement_ports#nec-pc-98)
 
+![NEC PC-9821](https://github.com/gameblabla/copyright_infringement_ports#nec-pc-9821)
+
+![IBM DOS](https://github.com/gameblabla/copyright_infringement_ports#ibm-dos)
 
 CBS Colecovision
 =================
@@ -412,5 +415,49 @@ This version, like the PC-88, acts like a PC-Booter but uses an internal copy of
 COMMAND.COM to reduce memory usage further.
 
 The game may use more conventional memory than usual, especially with the P86 mode so be careful.
+
+</details>
+
+NEC PC-9821
+==================
+![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/PC9821.jpg)
+
+[Download PC-9821 version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-PC9821)
+
+<details>
+The sucessor to the PC-9821 with a few additions, most notably a 256 colors mode at 640x400.
+However SVGA cards for DOS computers were already being released matching this resolution and even higher for that matter
+so the PC-9821 was too little, too late sadly...
+
+It is still very interesting to program for however, as there's still the EGC Blitter chip from earlier models
+and the text layer is still separate from the graphics layer, freeing resources that would otherwise be wasted on drawing text manually.
+This version uses DJGPP and also adds PC-9801-24K support compared to the PC-98 version.
+There's no reason i couldn't have done it to the PC-98 version other than the fact that i only managed to figure it out later...
+
+</details>
+
+
+</details>
+
+IBM DOS
+==================
+![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/dos.jpg)
+
+[Download DOS version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-DOS16)
+
+<details>
+The good stuff !
+Unfortunately this version took me the longest to work due to the sheer amount of video cards, sound cards and configuration to support,
+on top of the little documentation for some of them.
+I also had to revamp the keyboard routine from my last project as it turned out to be not suitable on some clone PCs...
+The biggest challenge was to implement PCM playback for stuff like the Adlib, PC Speaker and the Tandy PSG soundchip...
+Fortunately in this case, there were so "documentation" on how to achieve it so i was able to come up with something.
+
+Unfortunately it doesn't support the 8514/XGA cards but it would have been too slow ingame anyway...
+This supports 14 different video modes so besides Plantronics support (which dosbox-x still doesn't emulate),
+there should be something for everybody. Note that the higher resolution cards are only available on the 386 version.
+Technically it could have worked in real mode but that would have required XMS so i will pass on that...
+
+If you wish to run the game on an IBM AT 4.77Mhz computer, you will need to turn off sound or use a soundblaster and stick with CGA graphics.
 
 </details>
