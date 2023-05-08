@@ -1,0 +1,153 @@
+nasm -f obj decomp/aplib.asm -o aplib.o
+wcl386 -3 -bt=dos -l=dos32a -I./src/dosmid -I./src/generic -I./src/graphics -I./src -I./src/graphics/modex -I./src/input -Isrc/wave -Isrc/music -zu  -fe=GAME386.exe ./src/main.c ./src/generic/*.c ./src/graphics/cga/*.c ./src/graphics/*.c ./src/input/*.c ./src/graphics/ega/*.c ./src/music/null/*.c ./src/graphics/hgc/*.c ./src/graphics/hgcc/*.c ./src/graphics/tandy/*.c ./src/wave/sbdma/*.c ./src/wave/tandy/*.c ./src/wave/pck/*.c ./src/wave/null/*.c  ./src/wave/adlib/*.c ./src/music/adlib/*.c src/graphics/modex/*.c src/graphics/mcga/*.c aplib.o
+Open Watcom C/C++ x86 32-bit Compile and Link Utility
+Version 2.0 beta Apr 11 2023 00:41:19 (32-bit)
+Copyright (c) 2002-2023 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	wcc386 ./src/main.c  -3 -bt=dos -I./src/dosmid -I./src/generic -I./src/graphics -I./src -I./src/graphics/modex -I./src/input -Isrc/wave -Isrc/music -zu
+Open Watcom C x86 32-bit Optimizing Compiler
+Version 2.0 beta Apr 11 2023 00:35:10 (32-bit)
+Copyright (c) 2002-2023 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1984-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+./src/main.c: 1121 lines, included 10156, 0 warnings, 2 errors
+Error: Compiler returned a bad status compiling './src/main.c'
+	wcc386 ./src/generic/generic.c  -3 -bt=dos -I./src/dosmid -I./src/generic -I./src/graphics -I./src -I./src/graphics/modex -I./src/input -Isrc/wave -Isrc/music -zu
+Open Watcom C x86 32-bit Optimizing Compiler
+Version 2.0 beta Apr 11 2023 00:35:10 (32-bit)
+Copyright (c) 2002-2023 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1984-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+./src/generic/generic.c: 712 lines, included 6959, 11 warnings, 0 errors
+	wcc386 ./src/graphics/cga/cga.c  -3 -bt=dos -I./src/dosmid -I./src/generic -I./src/graphics -I./src -I./src/graphics/modex -I./src/input -Isrc/wave -Isrc/music -zu
+Open Watcom C x86 32-bit Optimizing Compiler
+Version 2.0 beta Apr 11 2023 00:35:10 (32-bit)
+Copyright (c) 2002-2023 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1984-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+./src/graphics/cga/cga.c: 286 lines, included 4961, 5 warnings, 0 errors
+	wcc386 ./src/graphics/graph.c  -3 -bt=dos -I./src/dosmid -I./src/generic -I./src/graphics -I./src -I./src/graphics/modex -I./src/input -Isrc/wave -Isrc/music -zu
+Open Watcom C x86 32-bit Optimizing Compiler
+Version 2.0 beta Apr 11 2023 00:35:10 (32-bit)
+Copyright (c) 2002-2023 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1984-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+./src/graphics/graph.c: 27 lines, included 7351, 2 warnings, 0 errors
+	wcc386 ./src/input/keyboard.c  -3 -bt=dos -I./src/dosmid -I./src/generic -I./src/graphics -I./src -I./src/graphics/modex -I./src/input -Isrc/wave -Isrc/music -zu
+Open Watcom C x86 32-bit Optimizing Compiler
+Version 2.0 beta Apr 11 2023 00:35:10 (32-bit)
+Copyright (c) 2002-2023 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1984-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+./src/input/keyboard.c: 86 lines, included 7628, 0 warnings, 0 errors
+	wcc386 ./src/graphics/ega/ega.c  -3 -bt=dos -I./src/dosmid -I./src/generic -I./src/graphics -I./src -I./src/graphics/modex -I./src/input -Isrc/wave -Isrc/music -zu
+Open Watcom C x86 32-bit Optimizing Compiler
+Version 2.0 beta Apr 11 2023 00:35:10 (32-bit)
+Copyright (c) 2002-2023 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1984-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+./src/graphics/ega/ega.c: 377 lines, included 4956, 12 warnings, 0 errors
+	wcc386 ./src/music/null/music_null.c  -3 -bt=dos -I./src/dosmid -I./src/generic -I./src/graphics -I./src -I./src/graphics/modex -I./src/input -Isrc/wave -Isrc/music -zu
+Open Watcom C x86 32-bit Optimizing Compiler
+Version 2.0 beta Apr 11 2023 00:35:10 (32-bit)
+Copyright (c) 2002-2023 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1984-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+./src/music/null/music_null.c: 45 lines, included 7456, 0 warnings, 0 errors
+	wcc386 ./src/graphics/hgc/hgc.c  -3 -bt=dos -I./src/dosmid -I./src/generic -I./src/graphics -I./src -I./src/graphics/modex -I./src/input -Isrc/wave -Isrc/music -zu
+Open Watcom C x86 32-bit Optimizing Compiler
+Version 2.0 beta Apr 11 2023 00:35:10 (32-bit)
+Copyright (c) 2002-2023 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1984-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+./src/graphics/hgc/hgc.c: 243 lines, included 4955, 3 warnings, 0 errors
+	wcc386 ./src/graphics/hgcc/hgcc.c  -3 -bt=dos -I./src/dosmid -I./src/generic -I./src/graphics -I./src -I./src/graphics/modex -I./src/input -Isrc/wave -Isrc/music -zu
+Open Watcom C x86 32-bit Optimizing Compiler
+Version 2.0 beta Apr 11 2023 00:35:10 (32-bit)
+Copyright (c) 2002-2023 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1984-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+./src/graphics/hgcc/hgcc.c: 427 lines, included 4955, 12 warnings, 0 errors
+	wcc386 ./src/graphics/tandy/tandy.c  -3 -bt=dos -I./src/dosmid -I./src/generic -I./src/graphics -I./src -I./src/graphics/modex -I./src/input -Isrc/wave -Isrc/music -zu
+Open Watcom C x86 32-bit Optimizing Compiler
+Version 2.0 beta Apr 11 2023 00:35:10 (32-bit)
+Copyright (c) 2002-2023 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1984-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+./src/graphics/tandy/tandy.c: 273 lines, included 4955, 2 warnings, 0 errors
+	wcc386 ./src/wave/sbdma/sbdma.c  -3 -bt=dos -I./src/dosmid -I./src/generic -I./src/graphics -I./src -I./src/graphics/modex -I./src/input -Isrc/wave -Isrc/music -zu
+Open Watcom C x86 32-bit Optimizing Compiler
+Version 2.0 beta Apr 11 2023 00:35:10 (32-bit)
+Copyright (c) 2002-2023 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1984-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+./src/wave/sbdma/sbdma.c: 651 lines, included 7984, 9 warnings, 0 errors
+	wcc386 ./src/wave/tandy/tandypsg.c  -3 -bt=dos -I./src/dosmid -I./src/generic -I./src/graphics -I./src -I./src/graphics/modex -I./src/input -Isrc/wave -Isrc/music -zu
+Open Watcom C x86 32-bit Optimizing Compiler
+Version 2.0 beta Apr 11 2023 00:35:10 (32-bit)
+Copyright (c) 2002-2023 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1984-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+./src/wave/tandy/tandypsg.c: 256 lines, included 7984, 0 warnings, 0 errors
+	wcc386 ./src/wave/pck/pck.c  -3 -bt=dos -I./src/dosmid -I./src/generic -I./src/graphics -I./src -I./src/graphics/modex -I./src/input -Isrc/wave -Isrc/music -zu
+Open Watcom C x86 32-bit Optimizing Compiler
+Version 2.0 beta Apr 11 2023 00:35:10 (32-bit)
+Copyright (c) 2002-2023 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1984-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+./src/wave/pck/pck.c: 163 lines, included 7984, 0 warnings, 0 errors
+	wcc386 ./src/wave/null/nullwav.c  -3 -bt=dos -I./src/dosmid -I./src/generic -I./src/graphics -I./src -I./src/graphics/modex -I./src/input -Isrc/wave -Isrc/music -zu
+Open Watcom C x86 32-bit Optimizing Compiler
+Version 2.0 beta Apr 11 2023 00:35:10 (32-bit)
+Copyright (c) 2002-2023 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1984-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+./src/wave/null/nullwav.c: 65 lines, included 7984, 0 warnings, 0 errors
+	wcc386 ./src/wave/adlib/adlibpcm.c  -3 -bt=dos -I./src/dosmid -I./src/generic -I./src/graphics -I./src -I./src/graphics/modex -I./src/input -Isrc/wave -Isrc/music -zu
+Open Watcom C x86 32-bit Optimizing Compiler
+Version 2.0 beta Apr 11 2023 00:35:10 (32-bit)
+Copyright (c) 2002-2023 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1984-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+./src/wave/adlib/adlibpcm.c: 314 lines, included 7650, 0 warnings, 0 errors
+	wcc386 ./src/music/adlib/music_adlib.c  -3 -bt=dos -I./src/dosmid -I./src/generic -I./src/graphics -I./src -I./src/graphics/modex -I./src/input -Isrc/wave -Isrc/music -zu
+Open Watcom C x86 32-bit Optimizing Compiler
+Version 2.0 beta Apr 11 2023 00:35:10 (32-bit)
+Copyright (c) 2002-2023 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1984-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+./src/music/adlib/music_adlib.c: 115 lines, included 7456, 2 warnings, 0 errors
+	wcc386 src/graphics/modex/vga.c  -3 -bt=dos -I./src/dosmid -I./src/generic -I./src/graphics -I./src -I./src/graphics/modex -I./src/input -Isrc/wave -Isrc/music -zu
+Open Watcom C x86 32-bit Optimizing Compiler
+Version 2.0 beta Apr 11 2023 00:35:10 (32-bit)
+Copyright (c) 2002-2023 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1984-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+src/graphics/modex/vga.c: 541 lines, included 6700, 12 warnings, 0 errors
+	wcc386 src/graphics/mcga/mcga.c  -3 -bt=dos -I./src/dosmid -I./src/generic -I./src/graphics -I./src -I./src/graphics/modex -I./src/input -Isrc/wave -Isrc/music -zu
+Open Watcom C x86 32-bit Optimizing Compiler
+Version 2.0 beta Apr 11 2023 00:35:10 (32-bit)
+Copyright (c) 2002-2023 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1984-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+src/graphics/mcga/mcga.c: 212 lines, included 6384, 4 warnings, 0 errors

@@ -1,0 +1,11 @@
+capture
+f
+FRAMES
+*.LZ4
+*.mp3
+*.sh
+*.err
+*.o
+*.exe
+*.EXE
+*.elf
