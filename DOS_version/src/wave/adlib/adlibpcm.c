@@ -157,6 +157,9 @@ void interrupt ADLIB_IRQ()
 			}
 			
 			adlib_music = 0;
+#if defined(__386__)
+			outp (0x20, 0x20);
+#endif
 			return;
 		}
 		
