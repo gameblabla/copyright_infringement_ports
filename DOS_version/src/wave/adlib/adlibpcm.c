@@ -194,10 +194,11 @@ unsigned char detect_adlib(uint16_t regi) {
 	unsigned char a, b;
     write_adlib_register(0x04, 0x60); // Reset both timers
     write_adlib_register(0x04, 0x80); // Enable timer interrupts
+    delay(1);
 	a = inp(regi);
 	write_adlib_register(0x02, 0xFF);
 	write_adlib_register(0x04, 0x21);
-	//delay(1);
+	delay(1);
 	b = inp(regi);
 	write_adlib_register(0x04, 0x60);
 	write_adlib_register(0x04, 0x00);

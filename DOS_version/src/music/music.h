@@ -8,7 +8,7 @@ typedef struct MusicDevice {
 
 	unsigned char (*Init_Music)(unsigned short flags);
 
-	unsigned char (*Load_Music)(const char* filename, unsigned long size);
+	unsigned char (*Load_Music)(const char* filename);
 	void (*Play_Music)(unsigned char loop);
 	void (*Stop_Music)();
 	

@@ -110,14 +110,17 @@ unsigned char frames_porn;
 #define DATAFOLDER "DATA\\"
 #endif
 
+const char *musfiles[] = {"TENSE", "OMNI", "DTAL", "HEAT", "BRES"};
 const char *sndfiles[] = {"SP1", "SP2", "SP3", "SP4", "SP5", "FUCK", "FUCK2"};
 const char *sif_files[] = {"TIT.SIF", "RIK.SIF", "RIKL.SIF", "F1.SIF", "F2.SIF", "F3.SIF", "F4.SIF", "F5.SIF", "F6.SIF", "F7.SIF", "F8.SIF", "F9.SIF"};
 const char *palf[] = {"TIT.PAL", "RIK.PAL", "F1.PAL"};
 
 #define num_sif_files (sizeof(sif_files) / sizeof(sif_files[0]))
 #define num_snd_files (sizeof(sndfiles) / sizeof(sndfiles[0]))
-#define num_pal_files (sizeof(palf) / sizeof(palf[0]))
+#define num_mus_files (sizeof(musfiles) / sizeof(musfiles[0]))
 
+#define num_pal_files (sizeof(palf) / sizeof(palf[0]))
+unsigned char mus_files[num_mus_files][20];
 unsigned char sound_files[num_snd_files][17];
 unsigned char frames_files[num_sif_files][17];
 unsigned char pal_files[num_pal_files][17];
@@ -230,17 +233,22 @@ unsigned char Choice_Menu(unsigned char d)
 			puts("\nSelect Music Driver:");
 			puts("0 = No music");
 			puts("1 = OPL2 Adlib/SB");
-			max_c = 1;
+			puts("2 = MIDI");
+			max_c = 2;
 			break;
-			case 2:
-			puts("\nSelect Sound Driver:");
-			puts("0 = Sound Blaster");
-			puts("1 = Adlib OPL2");
-			puts("2 = PC Speaker");
-			puts("3 = Tandy PSG");
-			puts("4 = No sound effects");
-			max_c = 4;
-			break;
+            case 2:
+                puts("\nSelect Sound Driver:");
+                puts("0 = Sound Blaster");
+                if (musdef != 2) {
+                    puts("1 = Adlib OPL2");
+                }
+                if (musdef != 1) {
+                    puts("2 = PC Speaker");
+                    puts("3 = Tandy PSG");
+                }
+                puts("4 = No sound effects");
+                max_c = 4;
+                break;
 			#if defined(__386__)
 			case 3:
 			puts("\nUse Low memory mode (less frames) ?:");
@@ -251,14 +259,23 @@ unsigned char Choice_Menu(unsigned char d)
 			#endif
 		}
 		
-        if (scanf("%d", &choice) != 1)
-        {
+
+        if (scanf("%d", &choice) != 1) {
             while ((c = getchar()) != '\n' && c != EOF);
             valid_choice = 0;
             puts(tryagain);
         } else {
             valid_choice = choice >= 0 && choice <= max_c;
-            if (!valid_choice) puts(tryagain);
+            if (musdef == 2 && d == 2) {
+                valid_choice = choice == 0 || choice == 4;
+            }
+            if (musdef == 1 && d == 2) {
+                valid_choice = choice == 0 || choice == 1 || choice == 4;
+            }
+            if (!valid_choice) {
+                while ((c = getchar()) != '\n' && c != EOF); // Clear input buffer
+                puts(tryagain);
+            }
         }
 		
 	} while (!valid_choice);
@@ -339,7 +356,19 @@ int main(int argc,char **argv)
 		break;
 		case 1:
 			mainmusic = IMF_device;
+			strcpy(tmp, ".IMF");
 		break;
+		case 2:
+			mainmusic = MIDI_device;
+			strcpy(tmp, ".MID");
+		break;
+	}
+	
+	for(i=0;i<num_mus_files;i++)
+	{
+		strcpy(mus_files[i], DATAFOLDER);
+		strcat(mus_files[i], musfiles[i]);
+		strcat(mus_files[i], tmp);
 	}
 	
 	mainmusic.Init_Music(0);
@@ -506,6 +535,7 @@ int main(int argc,char **argv)
 		strcat(pal_files[i], tmp);
 		strcat(pal_files[i], palf[i]);
 	}
+
 
 	ismusicdriver = 0;
 	voices_enabled = 0;
@@ -779,7 +809,7 @@ void switch_gamemode(unsigned char mode)
 			mainvideo.FlipVideo();
 			mainvideo.Vsyncwait();
 			
-			mainmusic.Load_Music(DATAFOLDER"TENSE.IMF", 32000);
+			mainmusic.Load_Music(mus_files[0]);
 			mainmusic.Play_Music(1);
 			
 		break;
@@ -821,7 +851,7 @@ void switch_gamemode(unsigned char mode)
 			mainsound.Sound_Load(sound_files[6], 1);
 			
 			
-			mainmusic.Load_Music(DATAFOLDER"HEAT.IMF", 32000);
+			mainmusic.Load_Music(mus_files[3]);
 			mainmusic.Play_Music(1);
 
 		break;
@@ -835,7 +865,7 @@ void switch_gamemode(unsigned char mode)
 			mainvideo.Print_text("Your SCORE was ", 0, 0, color_text);
 			mainvideo.Print_text(bcd, 17*8, 0, color_text);
 			
-			mainmusic.Load_Music(DATAFOLDER"BRES.IMF", 32000);
+			mainmusic.Load_Music(mus_files[4]);
 			mainmusic.Play_Music(0);
 			
 			//Canonical approach, thanks calcmaniac
@@ -887,7 +917,7 @@ void switch_gamemode(unsigned char mode)
 			mainsound.Sound_Load(sound_files[0], 0);
 			mainsound.Sound_Play(0);
 			
-			mainmusic.Load_Music(DATAFOLDER"OMNI.IMF", 32000);
+			mainmusic.Load_Music(mus_files[1]);
 			mainmusic.Play_Music(1);
 
 		break;
@@ -897,7 +927,7 @@ void switch_gamemode(unsigned char mode)
 			mainvideo.Print_text(ingametext[13], 0, 16, color_text);
 			mainvideo.Print_text(ingametext[14], 0, 48, color_text);
 			
-			mainmusic.Load_Music(DATAFOLDER"DETAILS.IMF", 32000);
+			mainmusic.Load_Music(mus_files[2]);
 			mainmusic.Play_Music(1);
 		break;
 	}

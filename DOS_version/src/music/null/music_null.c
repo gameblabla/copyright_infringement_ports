@@ -16,7 +16,7 @@ static unsigned char NULLMUS_Init(unsigned short flags)
 	return 1;
 }
 
-static unsigned char NULLMUS_Load(const char* filename, unsigned long size)
+static unsigned char NULLMUS_Load(const char* filename)
 {
 	return 0;
 }

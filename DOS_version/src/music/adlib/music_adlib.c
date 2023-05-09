@@ -39,7 +39,7 @@ static unsigned char IMF_Init(unsigned short flags)
 	return 1;
 }
 
-static unsigned char IMF_Load(const char* filename, unsigned long size)
+static unsigned char IMF_Load(const char* filename)
 {
 	int fd;
 	unsigned ssize;
