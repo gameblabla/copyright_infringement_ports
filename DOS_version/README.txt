@@ -81,10 +81,15 @@ Sound : Any sound option available
 Changelog
 =================
 
+1.22
+- Added MIDI support (including for OPL2/3 and also General MIDI)
+- Make the menu more robust (don't allow PC Speaker to be selected if MIDI/OPL is selected for instance)
+
 1.21
 - Fix keyboard issue with real mode version
 - Fix issue with menu selection going crazy if you input a letter instead of a number
 - Slightly reduced memory consumption
+- Fix VGA 800x600 going too fast, turns out the removed vsync waits were not required at all as long as hardware can keep up (which Dosbox does not)
 
 1.2
 - Added 160x200 PCJr/Tandy graphics mode (in addition to the already existing 320x200)
