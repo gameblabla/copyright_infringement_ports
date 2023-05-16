@@ -1,0 +1,103 @@
+#include <Files.h>
+#include <Sound.h>
+#include <SDL/SDL.h>
+#include <SDL/SDL_main.h>
+#include <SDL/SDL_mixer.h>
+#include "audio.h"
+
+Mix_Music* music;
+	
+SDL_Surface* sdl_screen;
+SDL_Surface* backbuffer;
+uint32_t key_pressed = 0;
+
+char path[256];
+#define   kBarkFileName      "\pbag.aif"
+
+
+#ifdef __MACOS__
+int SDL_main
+#else
+int main
+#endif
+(int argc, char* argv[])
+{
+	FSSpec spec;
+	short l, ref;
+	#define MAX_PATH 256
+	
+	SDL_Event event;
+	SDL_Surface* tmp;
+	int quit = 0, i, a;
+	
+	SDL_Init(SDL_INIT_VIDEO);
+	
+	SDL_ShowCursor(0);
+	sdl_screen = SDL_SetVideoMode(512, 342, 8, SDL_SWSURFACE | SDL_HWPALETTE
+#ifdef __MACOS__
+	| SDL_FULLSCREEN
+#endif
+	);
+
+	tmp = SDL_LoadBMP("pico.bmp");
+	if (tmp)
+	{
+		backbuffer = SDL_DisplayFormat(tmp);
+		SDL_FreeSurface(tmp);
+	}
+	
+	SDL_SetPalette(sdl_screen, SDL_LOGPAL|SDL_PHYSPAL, backbuffer->format->palette->colors, 0, backbuffer->format->palette->ncolors);
+	
+	FSMakeFSSpec (0, 0, kBarkFileName, &spec);	
+	FSpOpenDF(&spec, fsRdPerm, &ref);
+	SndStartFilePlay(NULL, ref, 0, NULL, NULL, NULL, NULL, FALSE);
+	
+	//FSClose(ref);
+	
+	/*Mix_OpenAudio(44100,AUDIO_S16SYS,2,1024);
+	Mix_AllocateChannels(2);
+	
+	music = Mix_LoadMUS("HEAT.MID");
+	Mix_PlayMusic(music, -1);*/
+	
+	while(!quit)
+	{
+		while (SDL_PollEvent(&event)) 
+		{
+			switch(event.type) 
+			{
+				case SDL_KEYUP:
+					switch(event.key.keysym.sym) 
+					{
+						/*
+						 * HOME is for OpenDingux
+						 * 3 is for RetroFW
+						 * RCTRL is for PocketGo v2
+						 * ESCAPE is mapped to Select
+						*/
+						case SDLK_ESCAPE:
+							quit = 1;
+						break;
+						default:
+						break;
+					}
+				break;
+				case SDL_KEYDOWN:
+					key_pressed = event.key.keysym.sym;
+				break;
+				case SDL_QUIT:
+					quit = 1;
+				break;
+			}
+		}
+		
+		SDL_BlitSurface(backbuffer, NULL, sdl_screen, NULL);
+		
+		//bitmap_scale(0, 0, backbuffer->w, backbuffer->h, sdl_screen->w, sdl_screen->h, backbuffer->w, 0, (uint16_t* restrict)backbuffer->pixels, (uint16_t* restrict)sdl_screen->pixels);
+		SDL_Flip(sdl_screen);
+	}
+	SDL_FreeSurface(sdl_screen);
+	SDL_FreeSurface(backbuffer);
+	SDL_Quit();
+
+}

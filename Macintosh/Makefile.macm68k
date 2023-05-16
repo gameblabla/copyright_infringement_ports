@@ -1,0 +1,24 @@
+
+PREFIX=$(RETRO68)/m68k-apple-macos
+CC=$(RETRO68)/bin/m68k-apple-macos-gcc
+REZ=$(RETRO68)/bin/Rez
+CFLAGS = -Os -fdata-sections -ffunction-sections
+LDFLAGS=  -Wl,--as-needed -Wl,--gc-sections -s 
+RINCLUDES=$(PREFIX)/RIncludes
+REZFLAGS=-I$(RINCLUDES)
+OBJS = src/main.o src/frames.o src/title.o src/rik.o src/rik1.o
+
+HelloWorld.bin HelloWorld.APPL HelloWorld.dsk: HelloWorld.code.bin
+	$(REZ) $(REZFLAGS) \
+		--copy "HelloWorld.code.bin" \
+		./68k.r \
+		-t "APPL" -c "????" \
+		-o HelloWorld.bin --cc HelloWorld.APPL --cc HelloWorld.dsk
+
+
+HelloWorld.code.bin:  $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $@ $(LDFLAGS)
+
+.PHONY: clean
+clean:
+	rm -f HelloWorld.bin HelloWorld.APPL HelloWorld.dsk HelloWorld.code.bin HelloWorld.code.bin.gdb src/main.o src/mac.o src/*.o

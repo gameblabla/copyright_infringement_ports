@@ -1,0 +1,31 @@
+# path to RETRO68
+PREFIX=$(RETRO68)/powerpc-apple-macos
+CC=$(RETRO68)/bin/powerpc-apple-macos-gcc
+CXX=$(RETRO68)/bin/powerpc-apple-macos-g++
+REZ=$(RETRO68)/bin/Rez
+
+SDL_INCLUDE=$(PREFIX)/include/SDL
+
+CFLAGS = -D__MACOS__ -DCLASSICMAC -DMSB_FIRST -Wall -Wextra -Ofast -fdata-sections -ffunction-sections -I$(SDL_INCLUDE)
+CXXFLAGS = $(CFLAGS)
+
+LDFLAGS= -Wl,--as-needed -Wl,--gc-sections 
+RINCLUDES=$(PREFIX)/RIncludes
+REZFLAGS=-I$(RINCLUDES)
+	
+OBJS = src/main.o src/frames.o src/title.o src/rik.o src/rik1.o
+#SOURCES = $(patsubst %.o, %.c, $(OBJS))
+	
+CFLAGS += $(DEFS)
+
+CIRight_PPC.bin CIRight_PPC.APPL CIRight_PPC.dsk: CIRight_PPC.xcoff
+	MakePEF CIRight_PPC.xcoff -o CIRight_PPC.pef
+	$(REZ) $(REZFLAGS) ./PPC.r -I$(RINCLUDES) -DCFRAG_NAME="\"CIRight_PPC\"" -o CIRight_PPC.bin --cc CIRight_PPC.dsk --cc CIRight_PPC.APPL --cc %CIRight_PPC.ad -t APPL -c ???? --data CIRight_PPC.pef
+
+
+CIRight_PPC.xcoff: $(OBJS)
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $@ $(LDFLAGS)	# C++ used for linking because RetroConsole needs it
+
+.PHONY: clean
+clean:
+	rm -f CIRight_PPC.bin CIRight_PPC.APPL CIRight_PPC.dsk CIRight_PPC.xcoff CIRight_PPC.xcoff.gdb $(OBJS)

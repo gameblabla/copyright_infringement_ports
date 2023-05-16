@@ -49,6 +49,10 @@ List
 
 ![IBM DOS](https://github.com/gameblabla/copyright_infringement_ports#ibm-dos)
 
+![Atari ST/E](https://github.com/gameblabla/copyright_infringement_ports#atari-st)
+
+![Macintosh (68k/PPC)](https://github.com/gameblabla/copyright_infringement_ports#mac)
+
 CBS Colecovision
 =================
 ![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/cbs.jpg)
@@ -459,5 +463,42 @@ there should be something for everybody. Note that the higher resolution cards a
 Technically it could have worked in real mode but that would have required XMS so i will pass on that...
 
 If you wish to run the game on an IBM AT 4.77Mhz computer, you will need to turn off sound or use a soundblaster and stick with CGA graphics.
+
+</details>
+
+Atari ST
+==================
+![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/atarist.jpg)
+
+[Download Atari ST/E version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-ST)
+
+<details>
+The 16-bits PC by Atari ! Initially it was quite decent but Atari never really upgraded the hardware until the Atari Falcon
+and by then, PCs already had SVGA cards and were leading the market. Still for a while, the ST got a good amount of decent games. (including 3D ones)
+
+This port wasn't too challenging to do, except for a bug that happened in STsprite that prevented me from doing anything until it was fixed.
+That said, i decided to not to use STSpritelibs because i realised i didn't need it. (it was fast enough without the Blitter chip)
+This version supports STE DMA sound and it will sounds much better than the PCM trick with the YM2413 chip... 
+Still at least on the bare standard ST, you do get something.
+
+Maybe i'll make a separate Atari Falcon version at some point...
+
+</details>
+
+
+Macintosh
+==================
+![](https://github.com/gameblabla/copyright_infringement_ports/raw/simp/img/mac.jpg)
+
+[Download MAC version](https://github.com/gameblabla/copyright_infringement_ports/releases/tag/1.0-MAC)
+
+<details>
+This one was a lot more trouble than i anticipated to be...
+Figuring out the Toolkit API without old books was challenging, ChatGPT was more useful than them...
+I still couldn't figure out how the hell games play PCM sounds without the use of the modern Sound manager introduced in later System versions.
+I did think about upping the requirements but i really wanted this to work on System 1.0-3.0 so decided not to.
+
+The game runs smoothly otherwise but it could have been much better.
+I may revisit this too with eventually 256 colors mode.
 
 </details>
