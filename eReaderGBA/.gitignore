@@ -1,0 +1,12 @@
+*.bin
+*.gba
+*.sav
+*.o
+*.a
+*.vpk
+*.sym
+*.7z
+*.elf
+raw2bmp
+ned*
+*.xcf

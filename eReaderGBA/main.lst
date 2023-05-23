@@ -1,0 +1,38 @@
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 1.
+Hexadecimal [24-Bits]
+
+
+
+      000000                          1   retry:
+q     000000                          2    ld bc,data // ld hl,00c8h      ;src/dst
+      000000                          3   lop:
+q     000000                          4    ld a,[bc] // inc bc // ld e,a  ;lsb
+q     000000                          5    ld a,[bc] // inc bc // ld d,a  ;msb
+q                                     6    dw 0bcfh ;aka rst 8 // db 0bh  ;[4000000h+hl]=de (DMA registers)
+q     000000 23               [ 6]    7    inc hl // inc  hl // ld a,l
+aq    000001                  [ 6]    8    cp a,0dch // jr nz,lop
+o     000001                          9   mod1 equ $+1
+q                                    10    dw 37cfh ;aka rst 8 // db 37h  ;bx 3E700F0h
+                                     11   ;below executed only on jap/plus... on jap/plus, above 37cfh is hl=[400010Ch]
+aq    000001                  [ 6]   12    ld a,3Ah // ld [mod1],a                  ;bx 3E700F0h (3Ah instead 37h)
+q     000001                         13    ld hl,1 // ld [mod2],hl // ld [mod3],hl  ;base (0200010Ch instead 0201610Ch)
+      000001 18 FD            [12]   14    jr retry
+      000003                         15   data:
+o     000003                         16   mod2 equ $+1
+o     000003                         17    dd loader         ;40000C8h dma2sad (loader)            ;\
+q                                    18    dd 030000F0h      ;40000CCh dma2dad (mirrored 3E700F0h) ; relocate loader
+q                                    19    dd 8000000ah      ;40000D0h dma2cnt (copy 0Ah x 16bit)  ;/
+o     000003                         20   mod3 equ $+1
+o     000003                         21    dd main           ;40000D4h dma3sad (main)              ;\prepare main reloc
+q                                    22    dd 02000000h      ;40000D8h dma3dad (2000000h)          ;/dma3cnt see loader
+q                                    23    .align 2          ;alignment for 16bit-halfword
+o     000003                         24   org $+201600ch     ;jap/plus: adjusted to org $+200000ch
+      000003                         25   loader:
+o     000003                         26    mov r0,80000000h  ;(dma3cnt, copy 10000h x 16bit)
+o     000003                         27    mov r1,04000000h  ;i/o base
+o     000003                         28    strb r1,[r1,208h] ;ime=0 (better disable ime before moving ram)
+o     000003                         29    str r0,[r1,0DCh]  ;dma3cnt (relocate to 2000000h)
+o     000003                         30    mov r15,2000000h  ;start relocated code at 2000000h in ARM state
+      000003                         31   main:
+                                     32 
+q                                    33    end

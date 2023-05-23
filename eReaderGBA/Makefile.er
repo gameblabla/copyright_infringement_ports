@@ -1,0 +1,58 @@
+# name of application
+NAME = "RikutoRevenge"
+
+# assemble and link
+CC       = arm-none-eabi-gcc
+AS       = arm-none-eabi-as
+OBJCOPY  = arm-none-eabi-objcopy
+
+# e-reader tools
+NEVPK    = ./nevpk
+NESAV    = ./neflmake
+NEDCMAKE = ./nedcmake
+NEDCENC  = ./nedcenc
+NEDCBMP  = ./raw2bmp
+
+CFLAGS =  -Os -fomit-frame-pointer -fdata-sections -ffunction-sections -DEREADER -flto  -mcpu=arm7tdmi
+CFLAGS += -mthumb -mno-tpcs-frame -mno-thumb-interwork
+
+LDFLAGS = -Wl,--as-needed -Wl,--gc-sections -flto -s
+
+OBJS = crt0er.o main.o gbalib.o frames16.o
+
+all : final
+
+final : rikrev.vpk
+	valgrind $(NEDCMAKE) -i $< -o "rikrev.bin" -type 2 -name $(NAME) -save 1 -header 0 
+	$(NEDCBMP) -i rikrev.bin-01.raw -o RIKU01
+	$(NEDCBMP) -i rikrev.bin-02.raw -o RIKU02
+	$(NEDCBMP) -i rikrev.bin-03.raw -o RIKU03
+	$(NEDCBMP) -i rikrev.bin-04.raw -o RIKU04
+	$(NEDCBMP) -i rikrev.bin-05.raw -o RIKU05
+	$(NEDCBMP) -i rikrev.bin-06.raw -o RIKU06
+	$(NEDCBMP) -i rikrev.bin-07.raw -o RIKU07
+	$(NEDCBMP) -i rikrev.bin-08.raw -o RIKU08
+	$(NEDCBMP) -i rikrev.bin-09.raw -o RIKU09
+	$(NEDCBMP) -i rikrev.bin-10.raw -o RIKU10
+	$(NEDCBMP) -i rikrev.bin-11.raw -o RIKU11
+	$(NEDCBMP) -i rikrev.bin-12.raw -o RIKU12
+	
+rikrev.vpk : rikrev.bin
+	$(NEVPK) -i "$<" -o "$@" -c -level 2 -lzwindow 31406 -lzsize 112
+
+rikrev.bin : rikrev.elf
+	$(OBJCOPY) -O binary "$<" "$@"
+
+rikrev.elf : $(OBJS) ereader.ld
+	$(CC) $(OBJS) -lgcc -Tereader.ld -o "$@" $(LDFLAGS)
+
+.o : .c
+	$(CC) $(CFLAGS) -c -o "$@" "$<"
+
+crt0er.o : crt0er.s
+	$(AS) -o "$@" "$<"
+
+clean :
+	rm -f rikrev.*.bin rikrev.*.raw rikrev.*.bmp
+	rm -f *.elf *.map rikrev.bin main.bin rikrev.vpk rikrev.sav main.sav
+	rm -f rikrev.o *.o
