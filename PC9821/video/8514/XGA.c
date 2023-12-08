@@ -145,7 +145,7 @@ struct CharSetDef *  load_font( font_file )
 
 
 
-void _8514_Load_BMP(BITMAP *bmp, const char *file, unsigned long ww, unsigned long hh, unsigned char bitplanes)
+unsigned char _8514_Load_BMP(BITMAP *bmp, const char *file, unsigned long ww, unsigned long hh, unsigned char bitplanes)
 {
 	int fd;
 	uint8_t i;
@@ -158,17 +158,23 @@ void _8514_Load_BMP(BITMAP *bmp, const char *file, unsigned long ww, unsigned lo
 	bmp->num_planes = bitplanes;
 	bmp->num_planes++;
 	
+	if (_dos_open(file, O_RDONLY, &fd) == 1)
+	{
+		return 0;
+	}
+	
 	for(i=0;i<bmp->num_planes;i++)
 	{
 		bmp->pdata[i] = malloc(64000);
 	}
 	
-	_dos_open(file, O_RDONLY, &fd);
 	for(i=0;i<bmp->num_planes;i++)
 	{
 		_dos_read(fd, bmp->pdata[i], 64000, &totalsize);
 	}
 	_dos_close(fd);
+	
+	return 1;
 }
 
 void _8514_Draw_bitmap(BITMAP *bmp, short x, short y)

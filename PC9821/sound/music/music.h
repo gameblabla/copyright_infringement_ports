@@ -18,5 +18,6 @@ typedef struct MusicDevice {
 extern MusicDevice IMF_device;
 extern MusicDevice MIDI_device;
 extern MusicDevice PMD_device;
+extern MusicDevice NullMus_device;
 
 #endif

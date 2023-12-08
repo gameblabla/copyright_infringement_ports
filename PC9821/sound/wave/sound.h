@@ -24,4 +24,6 @@ extern SoundDevice SB_device;
 extern SoundDevice SBDMA_device;
 extern SoundDevice PMDPCM_device;
 
+extern SoundDevice NullPCMdevice;
+
 #endif

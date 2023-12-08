@@ -9,7 +9,7 @@ LDFLAGS = -lc -Wl,--as-needed -Wl,--gc-sections -flto -s -no-pie
 
 OUTPUT = GAME.exe
 
-SOURCES =  ./main.c  video/pc9821/pc98.c sound/music/pmd/music_pmd.c sound/wave/pmd/pmdpcm.c input/pc98/input.c
+SOURCES =  ./main.c  video/pc9821/pc98.c sound/music/pmd/musicp.c sound/music/null/musnull.c sound/wave/pmd/pmdpcm.c sound/wave/null/wavenull.c input/pc98/input.c
 OBJS = ${SOURCES:.c=.o}
 
 all: asm ${OUTPUT}

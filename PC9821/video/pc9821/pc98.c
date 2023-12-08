@@ -406,7 +406,7 @@ typedef struct {
 } BMPHeader;
 #pragma pack(pop)
 
-static void PC9821_Load_SIF(const char *file, BITMAP *b, unsigned short s_width, unsigned short s_height, unsigned char load_pal)
+static unsigned char PC9821_Load_SIF(const char *file, BITMAP *b, unsigned short s_width, unsigned short s_height, unsigned char load_pal)
 {
     int fd;
     char str[16];
@@ -415,7 +415,10 @@ static void PC9821_Load_SIF(const char *file, BITMAP *b, unsigned short s_width,
 	uint32_t filesize = 0;
 	BMPHeader header;
 
-    _dos_open(file, O_RDONLY, &fd);
+    if (_dos_open(file, O_RDONLY, &fd) == 1)
+    {
+		return 0;
+	}
 	_dos_read(fd, &header, sizeof(BMPHeader), &totalsize);
 
 	b->width = header.width;
@@ -463,6 +466,8 @@ static void PC9821_Load_SIF(const char *file, BITMAP *b, unsigned short s_width,
         strcat(str, ".PAL");
         PC9821_Load_palette(str);
     }
+    
+    return 1;
 }
 
 static void PC9821_Wait_for_retrace(void) 

@@ -119,6 +119,12 @@ void Check_Music_Driver()
 			}
 		}
 	 }
+	 
+	if (ismusicdriver == 0)
+	{
+		 mainmusic = NullMus_device;
+		 mainsound = NullPCMdevice;
+	}
 }
 
 #define PMD_Play_Voice(vc) mainsound.Sound_Play(Voice, vc);
@@ -318,8 +324,8 @@ void switch_gamemode(unsigned char mode)
 				}
 			}
 			
-			mainvideo.LoadBMP("TITLE.SIF", &bmp, 640, 400, 1);
-			mainvideo.SetPalette();
+			unsigned char res = mainvideo.LoadBMP("TITLE.SIF", &bmp, 640, 400, 1);
+			if (res) mainvideo.SetPalette();
 			mainvideo.Print_text("COPYRIGHT INFRINGEMENT", 30, 0);
 			mainvideo.Print_text("BY GAMEBLABLA", 34, 1);
 			
@@ -328,7 +334,7 @@ void switch_gamemode(unsigned char mode)
 			
 			mainvideo.Print_text("PRESS KEY TO START", 31, 22);
 			
-			mainvideo.DrawBMP_static(&bmp, 0, 0, 1);
+			if (res) mainvideo.DrawBMP_static(&bmp, 0, 0, 1);
 			
 			mainvideo.FlipVideo(); mainvideo.Vsyncwait();
 		break;
@@ -390,7 +396,7 @@ void switch_gamemode(unsigned char mode)
 				{
 					mainmusic.Play_Music();
 				}
-				mainvideo.Print_text("Congrats! I'll leave you alone.", 0, 22);
+				mainvideo.Print_text("Ugh !", 0, 22);
 				mainvideo.Print_text("This won't be the last of me!", 0, 23);
 			}
 			mainvideo.FlipVideo(); mainvideo.Vsyncwait();
@@ -404,7 +410,7 @@ void switch_gamemode(unsigned char mode)
 			PMD_Play_Voice(0);
 			
 			mainvideo.Print_text("Oh my, what do we have here?", 0, 22);
-			mainvideo.Print_text("You look so innocent...", 0, 23);
+			mainvideo.Print_text("You look so innocent.", 0, 23);
 			
 		break;
 		case 4:
@@ -413,7 +419,7 @@ void switch_gamemode(unsigned char mode)
 				mainmusic.Play_Music();
 			}
 			mainvideo.Print_text("Your goal is to SCREW Zhongli!", 0, 22);
-			mainvideo.Print_text("Follow the instructions to get points. Good luck !", 0, 23);
+			mainvideo.Print_text("Follow the instructions to get points.", 0, 23);
 			mainvideo.Print_text("PRESS KEY TO START PLAYING", 0, 24);
 			PMD_Stop();
 		break;
