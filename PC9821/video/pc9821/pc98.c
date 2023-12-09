@@ -372,9 +372,8 @@ static void PC9821_Draw_sprite_normal_notrans(BITMAP *bmp, short x, short y, uns
 
 static void PC9821_Set_palette()
 {
-	unsigned char i;
-	i = 255;
-	while(i--)
+	unsigned int i;
+	for(i=0;i<256;i++)
 	{
 		OUTPORT_DOS(PEGC_PALLETE_SEL_ADDR, i);
 		OUTPORT_DOS(PEGC_RED_ADDR, palette_pc9821[(i*3)+0]);
