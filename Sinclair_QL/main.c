@@ -54,7 +54,8 @@ unsigned char FRAME_CURRENT = 0;
 // Screen 2 area
 // Stock ROM can go further at 0x2A000
 // but Minerva, this is as far as we can go...
-#define TEMP_RAM_AREA ((volatile void*)0x2C000)
+// Was using 0x2C000 but doing so prevented expanded systems with more than 512KB to work.
+#define TEMP_RAM_AREA ((volatile void*)0x2E000)
 
 
 WINDOWDEF_t my_windef = { 
